@@ -38,3 +38,4 @@ out/
 
 # Local application config
 src/main/resources/application.yaml
+.env
