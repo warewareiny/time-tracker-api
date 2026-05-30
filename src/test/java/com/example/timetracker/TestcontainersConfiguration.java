@@ -1,4 +1,4 @@
-package com.example.time_tracker;
+package com.example.timetracker;
 
 import org.springframework.boot.test.context.TestConfiguration;
 import org.springframework.boot.testcontainers.service.connection.ServiceConnection;

@@ -1,4 +1,4 @@
-package com.example.time_tracker;
+package com.example.timetracker;
 
 import org.springframework.boot.SpringApplication;
 
