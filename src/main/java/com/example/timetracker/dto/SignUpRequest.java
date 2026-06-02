@@ -11,7 +11,7 @@ import lombok.Data;
 public class SignUpRequest {
 
     @Schema(description = "Username", example = "Jon")
-    @Size(min = 5, max = 50, message = "Username must be between 5 and 50 characters")
+    @Size(min = 3, max = 50, message = "Username must be between 3 and 50 characters")
     @NotBlank(message = "Username cannot be empty")
     private String username;
 

@@ -4,6 +4,7 @@ import com.example.timetracker.dto.UpdateUserRequest;
 import com.example.timetracker.dto.UserResponse;
 import com.example.timetracker.entity.User;
 import com.example.timetracker.service.UserService;
+import io.swagger.v3.oas.annotations.security.SecurityRequirement;
 import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
 import org.springframework.security.access.prepost.PreAuthorize;
@@ -13,6 +14,7 @@ import java.util.List;
 
 import static java.util.stream.Collectors.toList;
 
+@SecurityRequirement(name = "bearerAuth")
 @RestController
 @RequestMapping("/users")
 @RequiredArgsConstructor

@@ -8,3 +8,7 @@ spring:
 token:
   signing:
     key:
+
+logging:
+  level:
+    org.springframework.security:
