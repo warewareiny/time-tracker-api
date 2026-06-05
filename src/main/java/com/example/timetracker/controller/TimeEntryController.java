@@ -3,12 +3,14 @@ package com.example.timetracker.controller;
 import com.example.timetracker.dto.ActiveTimerResponse;
 import com.example.timetracker.entity.TimeEntry;
 import com.example.timetracker.service.TimeEntryService;
+import io.swagger.v3.oas.annotations.security.SecurityRequirement;
 import lombok.RequiredArgsConstructor;
 import org.springframework.web.bind.annotation.*;
 
 import java.time.Duration;
 import java.time.Instant;
 
+@SecurityRequirement(name = "bearerAuth")
 @RestController
 @RequestMapping("/time-entries")
 @RequiredArgsConstructor
