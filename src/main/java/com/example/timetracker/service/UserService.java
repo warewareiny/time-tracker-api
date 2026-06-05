@@ -2,6 +2,7 @@
 
     import com.example.timetracker.dto.UpdateUserRequest;
     import com.example.timetracker.entity.User;
+    import com.example.timetracker.exception.UserAlreadyExistsException;
     import com.example.timetracker.repository.UserRepository;
     import lombok.RequiredArgsConstructor;
     import lombok.extern.slf4j.Slf4j;
@@ -30,8 +31,7 @@
 
             if (userRepository.existsByUsername(user.getUsername())) {
                 log.warn("User with username {} already exists", user.getUsername());
-    //            todo replace with custom exceptions
-                throw new RuntimeException("User with this username already exists");
+                throw new UserAlreadyExistsException(user.getUsername());
             }
 
             if (userRepository.existsByEmail(user.getEmail())) {

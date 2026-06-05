@@ -3,6 +3,7 @@ package com.example.timetracker.service;
 import com.example.timetracker.dto.CreateAndUpdateTaskRequest;
 import com.example.timetracker.entity.Task;
 import com.example.timetracker.entity.User;
+import com.example.timetracker.exception.TaskNotFoundException;
 import com.example.timetracker.repository.TaskRepository;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
@@ -22,10 +23,9 @@ public class TaskService {
     public Task findById(Integer id) {
         User currentUser = userService.getCurrentUser();
         return taskRepository.findByIdAndUser(id, currentUser)
-//                TODO: replace with custom TaskNotFoundException
                 .orElseThrow(() -> {
                     log.warn("Task {} not found for current user", id);
-                    return new RuntimeException("Task not found");
+                    return new TaskNotFoundException(id);
                 });
     }
 

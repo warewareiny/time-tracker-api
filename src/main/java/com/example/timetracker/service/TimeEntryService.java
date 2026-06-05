@@ -3,6 +3,9 @@ package com.example.timetracker.service;
 import com.example.timetracker.entity.Task;
 import com.example.timetracker.entity.TimeEntry;
 import com.example.timetracker.entity.User;
+import com.example.timetracker.exception.AccessDeniedException;
+import com.example.timetracker.exception.ActiveTimerAlreadyExistsException;
+import com.example.timetracker.exception.ActiveTimerNotFoundException;
 import com.example.timetracker.repository.TimeEntryRepository;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
@@ -34,14 +37,12 @@ public class TimeEntryService {
 
         if (!task.getUser().getId().equals(currentUser.getId())) {
             log.warn("User {} tried to start timer for alien task {}", currentUser.getId(), taskId);
-//            TODO: replace with custom exception
-            throw new RuntimeException("Access denied");
+            throw new AccessDeniedException();
         }
 
         if (timeEntryRepository.existsByUserAndEndTimeIsNull(currentUser)) {
             log.warn("User {} already has active timer", currentUser.getId());
-//            TODO: replace with custom exception
-            throw new RuntimeException("Active timer already exists");
+            throw new ActiveTimerAlreadyExistsException();
         }
 
         TimeEntry entry = TimeEntry.builder()
@@ -100,9 +101,8 @@ public class TimeEntryService {
     private TimeEntry getActiveEntry(User user) {
         return timeEntryRepository.findByUserAndEndTimeIsNull(user)
                 .orElseThrow(() -> {
-//                    TODO: replace with custom exception
                     log.warn("Active timer not found for user {}", user.getId());
-                    return new RuntimeException("Active timer not found");
+                    return new ActiveTimerNotFoundException();
                 });
     }
 }
