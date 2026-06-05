@@ -24,7 +24,7 @@ public class TimeEntry {
 
     private Instant endTime;
 
-    private Integer durationMinutes;
+    private Long durationMinutes;
 
     @CreationTimestamp
     @Column(nullable = false, updatable = false)
@@ -37,4 +37,8 @@ public class TimeEntry {
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "task_id", nullable = false)
     private Task task;
+
+    @ManyToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name = "user_id", nullable = false)
+    private User user;
 }

@@ -31,8 +31,8 @@ public class TaskController {
 
     @ResponseStatus(HttpStatus.CREATED)
     @PostMapping
-    public TaskResponse create(@RequestBody @Valid CreateAndUpdateTaskRequest taskRequest) {
-        return toResponse(taskService.save(toTask(taskRequest)));
+    public TaskResponse create(@RequestBody @Valid CreateAndUpdateTaskRequest request) {
+        return toResponse(taskService.create(request));
     }
 
     @GetMapping("/{id}")
@@ -61,11 +61,4 @@ public class TaskController {
                 .build();
     }
 
-    private Task toTask(CreateAndUpdateTaskRequest request) {
-        return Task.builder()
-                .title(request.getTitle())
-                .description(request.getDescription())
-                .status(request.getStatus())
-                .build();
-    }
 }

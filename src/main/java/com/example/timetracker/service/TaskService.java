@@ -2,9 +2,11 @@ package com.example.timetracker.service;
 
 import com.example.timetracker.dto.CreateAndUpdateTaskRequest;
 import com.example.timetracker.entity.Task;
+import com.example.timetracker.entity.User;
 import com.example.timetracker.repository.TaskRepository;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import java.util.List;
 
@@ -13,32 +15,48 @@ import java.util.List;
 public class TaskService {
 
     private final TaskRepository taskRepository;
-
-    public Task save(Task task) {
-        return taskRepository.save(task);
-    }
+    private final UserService userService;
 
     public Task findById(Integer id) {
-        return taskRepository.findById(id)
+        User currentUser = userService.getCurrentUser();
+        return taskRepository.findByIdAndUser(id, currentUser)
 //                TODO: replace with custom TaskNotFoundException
                 .orElseThrow(() -> new RuntimeException("Task not found"));
     }
 
     public List<Task> findAll() {
-        return taskRepository.findAll();
+        User currentUser = userService.getCurrentUser();
+        return taskRepository.findByUser(currentUser);
     }
 
+    @Transactional
     public void deleteById(Integer id) {
-        taskRepository.deleteById(id);
+        Task task = findById(id);
+        taskRepository.delete(task);
     }
 
-    public Task updateCurrentTask(Integer id, CreateAndUpdateTaskRequest taskRequest) {
+    @Transactional
+    public Task updateCurrentTask(Integer id, CreateAndUpdateTaskRequest request) {
         Task task = findById(id);
 
-        task.setTitle(taskRequest.getTitle());
-        task.setDescription(taskRequest.getDescription());
-        task.setStatus(taskRequest.getStatus());
+        task.setTitle(request.getTitle());
+        task.setDescription(request.getDescription());
+        task.setStatus(request.getStatus());
 
-        return save(task);
+        return taskRepository.save(task);
+    }
+
+    @Transactional
+    public Task create(CreateAndUpdateTaskRequest request) {
+        User currentUser = userService.getCurrentUser();
+
+        Task task = Task.builder()
+                .title(request.getTitle())
+                .description(request.getDescription())
+                .status(request.getStatus())
+                .user(currentUser)
+                .build();
+
+        return taskRepository.save(task);
     }
 }
