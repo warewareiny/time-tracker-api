@@ -44,6 +44,11 @@ public class GlobalExceptionHandler {
         );
     }
 
+    @ExceptionHandler(TaskAlreadyCompletedException.class)
+    public ResponseEntity<ErrorResponse> handleTaskAlreadyCompleted(TaskAlreadyCompletedException ex) {
+        return buildResponse(HttpStatus.CONFLICT, ex.getMessage());
+    }
+
     private ResponseEntity<ErrorResponse> buildResponse(HttpStatus status, String message) {
         return ResponseEntity.status(status)
                 .body(ErrorResponse.builder()

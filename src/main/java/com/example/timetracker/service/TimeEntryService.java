@@ -1,11 +1,12 @@
 package com.example.timetracker.service;
 
+import com.example.timetracker.entity.Status;
 import com.example.timetracker.entity.Task;
 import com.example.timetracker.entity.TimeEntry;
 import com.example.timetracker.entity.User;
-import com.example.timetracker.exception.AccessDeniedException;
 import com.example.timetracker.exception.ActiveTimerAlreadyExistsException;
 import com.example.timetracker.exception.ActiveTimerNotFoundException;
+import com.example.timetracker.exception.TaskAlreadyCompletedException;
 import com.example.timetracker.repository.TimeEntryRepository;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
@@ -35,9 +36,9 @@ public class TimeEntryService {
 
         Task task = taskService.findById(taskId);
 
-        if (!task.getUser().getId().equals(currentUser.getId())) {
-            log.warn("User {} tried to start timer for alien task {}", currentUser.getId(), taskId);
-            throw new AccessDeniedException();
+        if (task.getStatus() == Status.DONE) {
+            log.warn("User {} tried to start completed task {}", currentUser.getId(), taskId);
+            throw new TaskAlreadyCompletedException(taskId);
         }
 
         if (timeEntryRepository.existsByUserAndEndTimeIsNull(currentUser)) {
@@ -66,14 +67,22 @@ public class TimeEntryService {
         log.info("Stopping active timer for user {}", currentUser.getId());
 
         TimeEntry entry = getActiveEntry(currentUser);
-        entry.setEndTime(Instant.now());
 
+        entry.setEndTime(Instant.now());
         entry.setDurationMinutes(
                 Duration.between(
                         entry.getStartTime(),
                         entry.getEndTime()
                 ).toMinutes()
         );
+
+        Task task = entry.getTask();
+
+        if (task.getStatus() != Status.DONE) {
+            task.setStatus(Status.DONE);
+
+            log.info("Task {} automatically marked as DONE", task.getId());
+        }
 
         TimeEntry savedEntry = timeEntryRepository.save(entry);
 
