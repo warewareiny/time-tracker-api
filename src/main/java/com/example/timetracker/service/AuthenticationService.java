@@ -6,11 +6,13 @@ import com.example.timetracker.dto.SignUpRequest;
 import com.example.timetracker.entity.Role;
 import com.example.timetracker.entity.User;
 import lombok.RequiredArgsConstructor;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
+@Slf4j
 @Service
 @RequiredArgsConstructor
 public class AuthenticationService {
@@ -21,6 +23,7 @@ public class AuthenticationService {
     private final AuthenticationManager authenticationManager;
 
     public JwtAuthenticationResponse signUp(SignUpRequest request) {
+        log.info("Registering user {}", request.getUsername());
 
         var user = User.builder()
                 .username(request.getUsername())
@@ -32,10 +35,15 @@ public class AuthenticationService {
         userService.create(user);
 
         var jwt = jwtService.generateToken(user);
+
+        log.info("User {} registered successfully", request.getUsername());
+
         return new JwtAuthenticationResponse(jwt);
     }
 
     public JwtAuthenticationResponse signIn(SignInRequest request) {
+        log.info("Authentication attempt for user {}", request.getUsername());
+
         authenticationManager.authenticate(new UsernamePasswordAuthenticationToken(
                 request.getUsername(),
                 request.getPassword()
@@ -46,6 +54,9 @@ public class AuthenticationService {
                 .loadUserByUsername(request.getUsername());
 
         var jwt = jwtService.generateToken(user);
+
+        log.info("User {} authenticated successfully", request.getUsername());
+
         return new JwtAuthenticationResponse(jwt);
     }
 }

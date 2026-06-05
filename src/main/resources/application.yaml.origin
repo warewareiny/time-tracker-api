@@ -11,4 +11,9 @@ token:
 
 logging:
   level:
-    org.springframework.security:
+    root: INFO
+    com.example.timetracker: INFO
+  file:
+    name: logs/time-tracker.log
+  pattern:
+    console: "%d{yyyy-MM-dd HH:mm:ss} [%thread] %-5level %logger{36} - %msg%n"
