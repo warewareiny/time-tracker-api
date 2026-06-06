@@ -82,8 +82,7 @@ public class UserService implements UserDetailsService {
     public void deleteById(Integer id) {
         log.info("Deleting user {}", id);
 
-        User user = findById(id);
-        userRepository.delete(user);
+        userRepository.deleteById(id);
 
         log.info("User {} deleted", id);
     }

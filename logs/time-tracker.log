@@ -1,5 +1,450 @@
-2026-06-05T23:31:05.655+03:00  INFO 35756 --- [SpringApplicationShutdownHook] o.s.boot.tomcat.GracefulShutdown         : Commencing graceful shutdown. Waiting for active requests to complete
-2026-06-05T23:31:05.687+03:00  INFO 35756 --- [tomcat-shutdown] o.s.boot.tomcat.GracefulShutdown         : Graceful shutdown complete
-2026-06-05T23:31:05.692+03:00  INFO 35756 --- [SpringApplicationShutdownHook] j.LocalContainerEntityManagerFactoryBean : Closing JPA EntityManagerFactory for persistence unit 'default'
-2026-06-05T23:31:05.695+03:00  INFO 35756 --- [SpringApplicationShutdownHook] com.zaxxer.hikari.HikariDataSource       : HikariPool-1 - Shutdown initiated...
-2026-06-05T23:31:05.700+03:00  INFO 35756 --- [SpringApplicationShutdownHook] com.zaxxer.hikari.HikariDataSource       : HikariPool-1 - Shutdown completed.
+2026-06-06T15:31:04.320+03:00  INFO 1588 --- [main] c.e.timetracker.TimeTrackerApplication   : Starting TimeTrackerApplication using Java 17.0.15 with PID 1588 (D:\Projects\time-tracker\build\classes\java\main started by warew in D:\Projects\time-tracker)
+2026-06-06T15:31:04.330+03:00  INFO 1588 --- [main] c.e.timetracker.TimeTrackerApplication   : No active profile set, falling back to 1 default profile: "default"
+2026-06-06T15:31:04.395+03:00  INFO 1588 --- [main] .s.b.d.c.l.DockerComposeLifecycleManager : Using Docker Compose file D:\Projects\time-tracker\compose.yaml
+2026-06-06T15:31:05.682+03:00  INFO 1588 --- [OutputReader-stderr] o.s.boot.docker.compose.core.DockerCli   :  Container time-tracker-postgres-1  Created
+2026-06-06T15:31:05.703+03:00  INFO 1588 --- [OutputReader-stderr] o.s.boot.docker.compose.core.DockerCli   :  Container time-tracker-postgres-1  Starting
+2026-06-06T15:31:06.174+03:00  INFO 1588 --- [OutputReader-stderr] o.s.boot.docker.compose.core.DockerCli   :  Container time-tracker-postgres-1  Started
+2026-06-06T15:31:06.174+03:00  INFO 1588 --- [OutputReader-stderr] o.s.boot.docker.compose.core.DockerCli   :  Container time-tracker-postgres-1  Waiting
+2026-06-06T15:31:06.684+03:00  INFO 1588 --- [OutputReader-stderr] o.s.boot.docker.compose.core.DockerCli   :  Container time-tracker-postgres-1  Healthy
+2026-06-06T15:31:09.599+03:00  INFO 1588 --- [main] .s.d.r.c.RepositoryConfigurationDelegate : Multiple Spring Data modules found, entering strict repository configuration mode
+2026-06-06T15:31:09.600+03:00  INFO 1588 --- [main] .s.d.r.c.RepositoryConfigurationDelegate : Bootstrapping Spring Data JDBC repositories in DEFAULT mode.
+2026-06-06T15:31:09.637+03:00  INFO 1588 --- [main] .RepositoryConfigurationExtensionSupport : Spring Data JDBC - Could not safely identify store assignment for repository candidate interface com.example.timetracker.repository.TaskRepository; If you want this repository to be a JDBC repository, consider annotating your entities with one of these annotations: org.springframework.data.relational.core.mapping.Table.
+2026-06-06T15:31:09.639+03:00  INFO 1588 --- [main] .RepositoryConfigurationExtensionSupport : Spring Data JDBC - Could not safely identify store assignment for repository candidate interface com.example.timetracker.repository.TimeEntryRepository; If you want this repository to be a JDBC repository, consider annotating your entities with one of these annotations: org.springframework.data.relational.core.mapping.Table.
+2026-06-06T15:31:09.640+03:00  INFO 1588 --- [main] .RepositoryConfigurationExtensionSupport : Spring Data JDBC - Could not safely identify store assignment for repository candidate interface com.example.timetracker.repository.UserRepository; If you want this repository to be a JDBC repository, consider annotating your entities with one of these annotations: org.springframework.data.relational.core.mapping.Table.
+2026-06-06T15:31:09.641+03:00  INFO 1588 --- [main] .s.d.r.c.RepositoryConfigurationDelegate : Finished Spring Data repository scanning in 33 ms. Found 0 JDBC repository interfaces.
+2026-06-06T15:31:09.653+03:00  INFO 1588 --- [main] .s.d.r.c.RepositoryConfigurationDelegate : Multiple Spring Data modules found, entering strict repository configuration mode
+2026-06-06T15:31:09.654+03:00  INFO 1588 --- [main] .s.d.r.c.RepositoryConfigurationDelegate : Bootstrapping Spring Data JPA repositories in DEFAULT mode.
+2026-06-06T15:31:09.685+03:00  INFO 1588 --- [main] .s.d.r.c.RepositoryConfigurationDelegate : Finished Spring Data repository scanning in 25 ms. Found 3 JPA repository interfaces.
+2026-06-06T15:31:10.317+03:00  INFO 1588 --- [main] o.s.boot.tomcat.TomcatWebServer          : Tomcat initialized with port 8080 (http)
+2026-06-06T15:31:10.339+03:00  INFO 1588 --- [main] o.apache.catalina.core.StandardService   : Starting service [Tomcat]
+2026-06-06T15:31:10.340+03:00  INFO 1588 --- [main] o.apache.catalina.core.StandardEngine    : Starting Servlet engine: [Apache Tomcat/11.0.21]
+2026-06-06T15:31:10.402+03:00  INFO 1588 --- [main] b.w.c.s.WebApplicationContextInitializer : Root WebApplicationContext: initialization completed in 2642 ms
+2026-06-06T15:31:10.940+03:00  INFO 1588 --- [main] liquibase.database                       : Set default schema name to public
+2026-06-06T15:31:22.488+03:00  INFO 1588 --- [main] liquibase.changelog                      : Reading from public.databasechangelog
+2026-06-06T15:31:22.528+03:00  INFO 1588 --- [main] liquibase.ui                             : Database is up to date, no changesets to execute
+2026-06-06T15:31:22.530+03:00  INFO 1588 --- [main] liquibase.changelog                      : Reading from public.databasechangelog
+2026-06-06T15:31:22.539+03:00  INFO 1588 --- [main] liquibase.util                           : UPDATE SUMMARY
+2026-06-06T15:31:22.539+03:00  INFO 1588 --- [main] liquibase.util                           : Run:                          0
+2026-06-06T15:31:22.539+03:00  INFO 1588 --- [main] liquibase.util                           : Previously run:               3
+2026-06-06T15:31:22.539+03:00  INFO 1588 --- [main] liquibase.util                           : Filtered out:                 0
+2026-06-06T15:31:22.539+03:00  INFO 1588 --- [main] liquibase.util                           : -------------------------------
+2026-06-06T15:31:22.539+03:00  INFO 1588 --- [main] liquibase.util                           : Total change sets:            3
+2026-06-06T15:31:22.540+03:00  INFO 1588 --- [main] liquibase.util                           : Update summary generated
+2026-06-06T15:31:22.541+03:00  INFO 1588 --- [main] liquibase.command                        : Command execution complete
+2026-06-06T15:31:22.603+03:00  INFO 1588 --- [main] com.zaxxer.hikari.HikariDataSource       : HikariPool-1 - Starting...
+2026-06-06T15:31:22.793+03:00  INFO 1588 --- [main] com.zaxxer.hikari.pool.HikariPool        : HikariPool-1 - Added connection org.postgresql.jdbc.PgConnection@e2c627e
+2026-06-06T15:31:22.794+03:00  INFO 1588 --- [main] com.zaxxer.hikari.HikariDataSource       : HikariPool-1 - Start completed.
+2026-06-06T15:31:22.818+03:00  INFO 1588 --- [main] org.hibernate.orm.jpa                    : HHH008540: Processing PersistenceUnitInfo [name: default]
+2026-06-06T15:31:22.874+03:00  INFO 1588 --- [main] org.hibernate.orm.core                   : HHH000001: Hibernate ORM core version 7.2.12.Final
+2026-06-06T15:31:23.310+03:00  INFO 1588 --- [main] o.s.o.j.p.SpringPersistenceUnitInfo      : No LoadTimeWeaver setup: ignoring JPA class transformer
+2026-06-06T15:31:23.407+03:00  INFO 1588 --- [main] org.hibernate.orm.connections.pooling    : HHH10001005: Database info:
+	Database JDBC URL [jdbc:postgresql://127.0.0.1:5432/time_tracker]
+	Database driver: PostgreSQL JDBC Driver
+	Database dialect: PostgreSQLDialect
+	Database version: 17.2
+	Default catalog/schema: time_tracker/public
+	Autocommit mode: undefined/unknown
+	Isolation level: READ_COMMITTED [default READ_COMMITTED]
+	JDBC fetch size: none
+	Pool: DataSourceConnectionProvider
+	Minimum pool size: undefined/unknown
+	Maximum pool size: undefined/unknown
+2026-06-06T15:31:24.435+03:00  INFO 1588 --- [main] org.hibernate.orm.core                   : HHH000489: No JTA platform available (set 'hibernate.transaction.jta.platform' to enable JTA platform integration)
+2026-06-06T15:31:24.444+03:00  INFO 1588 --- [main] j.LocalContainerEntityManagerFactoryBean : Initialized JPA EntityManagerFactory for persistence unit 'default'
+2026-06-06T15:31:24.516+03:00  INFO 1588 --- [main] o.s.d.j.r.query.QueryEnhancerFactories   : Hibernate is in classpath; If applicable, HQL parser will be used.
+2026-06-06T15:31:24.797+03:00  INFO 1588 --- [main] eAuthenticationProviderManagerConfigurer : Global AuthenticationManager configured with AuthenticationProvider bean with name authenticationProvider
+2026-06-06T15:31:24.797+03:00  WARN 1588 --- [main] r$InitializeUserDetailsManagerConfigurer : Global AuthenticationManager configured with an AuthenticationProvider bean. UserDetailsService beans will not be used by Spring Security for automatically configuring username/password login. Consider removing the AuthenticationProvider bean. Alternatively, consider using the UserDetailsService in a manually instantiated DaoAuthenticationProvider. If the current configuration is intentional, to turn off this warning, increase the logging level of 'org.springframework.security.config.annotation.authentication.configuration.InitializeUserDetailsBeanManagerConfigurer' to ERROR
+2026-06-06T15:31:24.978+03:00  WARN 1588 --- [main] JpaBaseConfiguration$JpaWebConfiguration : spring.jpa.open-in-view is enabled by default. Therefore, database queries may be performed during view rendering. Explicitly configure spring.jpa.open-in-view to disable this warning
+2026-06-06T15:31:25.777+03:00  INFO 1588 --- [main] o.s.boot.tomcat.TomcatWebServer          : Tomcat started on port 8080 (http) with context path '/'
+2026-06-06T15:31:25.785+03:00  INFO 1588 --- [main] c.e.timetracker.TimeTrackerApplication   : Started TimeTrackerApplication in 21.889 seconds (process running for 31.799)
+2026-06-06T15:31:25.788+03:00  WARN 1588 --- [main] o.s.core.events.SpringDocAppInitializer  : SpringDoc /v3/api-docs endpoint is enabled by default. To disable it in production, set the property 'springdoc.api-docs.enabled=false'
+2026-06-06T15:31:25.788+03:00  WARN 1588 --- [main] o.s.core.events.SpringDocAppInitializer  : SpringDoc /swagger-ui.html endpoint is enabled by default. To disable it in production, set the property 'springdoc.swagger-ui.enabled=false'
+2026-06-06T15:32:47.640+03:00  INFO 1588 --- [SpringApplicationShutdownHook] o.s.boot.tomcat.GracefulShutdown         : Commencing graceful shutdown. Waiting for active requests to complete
+2026-06-06T15:32:47.665+03:00  INFO 1588 --- [tomcat-shutdown] o.s.boot.tomcat.GracefulShutdown         : Graceful shutdown complete
+2026-06-06T15:32:47.674+03:00  INFO 1588 --- [SpringApplicationShutdownHook] j.LocalContainerEntityManagerFactoryBean : Closing JPA EntityManagerFactory for persistence unit 'default'
+2026-06-06T15:32:47.676+03:00  INFO 1588 --- [SpringApplicationShutdownHook] com.zaxxer.hikari.HikariDataSource       : HikariPool-1 - Shutdown initiated...
+2026-06-06T15:32:47.681+03:00  INFO 1588 --- [SpringApplicationShutdownHook] com.zaxxer.hikari.HikariDataSource       : HikariPool-1 - Shutdown completed.
+2026-06-06T15:33:46.948+03:00  INFO 15332 --- [Test worker] c.e.t.TimeTrackerApplicationTests        : Starting TimeTrackerApplicationTests using Java 17.0.12 with PID 15332 (started by warew in D:\Projects\time-tracker)
+2026-06-06T15:33:46.951+03:00  INFO 15332 --- [Test worker] c.e.t.TimeTrackerApplicationTests        : No active profile set, falling back to 1 default profile: "default"
+2026-06-06T15:33:48.772+03:00  INFO 15332 --- [Test worker] .s.d.r.c.RepositoryConfigurationDelegate : Multiple Spring Data modules found, entering strict repository configuration mode
+2026-06-06T15:33:48.776+03:00  INFO 15332 --- [Test worker] .s.d.r.c.RepositoryConfigurationDelegate : Bootstrapping Spring Data JDBC repositories in DEFAULT mode.
+2026-06-06T15:33:48.871+03:00  INFO 15332 --- [Test worker] .RepositoryConfigurationExtensionSupport : Spring Data JDBC - Could not safely identify store assignment for repository candidate interface com.example.timetracker.repository.TaskRepository; If you want this repository to be a JDBC repository, consider annotating your entities with one of these annotations: org.springframework.data.relational.core.mapping.Table.
+2026-06-06T15:33:48.875+03:00  INFO 15332 --- [Test worker] .RepositoryConfigurationExtensionSupport : Spring Data JDBC - Could not safely identify store assignment for repository candidate interface com.example.timetracker.repository.TimeEntryRepository; If you want this repository to be a JDBC repository, consider annotating your entities with one of these annotations: org.springframework.data.relational.core.mapping.Table.
+2026-06-06T15:33:48.878+03:00  INFO 15332 --- [Test worker] .RepositoryConfigurationExtensionSupport : Spring Data JDBC - Could not safely identify store assignment for repository candidate interface com.example.timetracker.repository.UserRepository; If you want this repository to be a JDBC repository, consider annotating your entities with one of these annotations: org.springframework.data.relational.core.mapping.Table.
+2026-06-06T15:33:48.879+03:00  INFO 15332 --- [Test worker] .s.d.r.c.RepositoryConfigurationDelegate : Finished Spring Data repository scanning in 80 ms. Found 0 JDBC repository interfaces.
+2026-06-06T15:33:48.907+03:00  INFO 15332 --- [Test worker] .s.d.r.c.RepositoryConfigurationDelegate : Multiple Spring Data modules found, entering strict repository configuration mode
+2026-06-06T15:33:48.910+03:00  INFO 15332 --- [Test worker] .s.d.r.c.RepositoryConfigurationDelegate : Bootstrapping Spring Data JPA repositories in DEFAULT mode.
+2026-06-06T15:33:48.985+03:00  INFO 15332 --- [Test worker] .s.d.r.c.RepositoryConfigurationDelegate : Finished Spring Data repository scanning in 62 ms. Found 3 JPA repository interfaces.
+2026-06-06T15:33:49.940+03:00  INFO 15332 --- [Test worker] org.testcontainers.images.PullPolicy     : Image pull policy will be performed by: DefaultPullPolicy()
+2026-06-06T15:33:49.946+03:00  INFO 15332 --- [Test worker] o.t.utility.ImageNameSubstitutor         : Image name substitution will be performed by: DefaultImageNameSubstitutor (composite of 'ConfigurationFileImageNameSubstitutor' and 'PrefixingImageNameSubstitutor')
+2026-06-06T15:33:49.996+03:00  INFO 15332 --- [Test worker] org.testcontainers.DockerClientFactory   : Testcontainers version: 2.0.5
+2026-06-06T15:33:50.600+03:00  INFO 15332 --- [Test worker] o.t.d.DockerClientProviderStrategy       : Loaded org.testcontainers.dockerclient.NpipeSocketClientProviderStrategy from ~/.testcontainers.properties, will try it first
+2026-06-06T15:33:51.139+03:00  INFO 15332 --- [Test worker] o.t.d.DockerClientProviderStrategy       : Found Docker environment with local Npipe socket (npipe:////./pipe/docker_engine)
+2026-06-06T15:33:51.141+03:00  INFO 15332 --- [Test worker] org.testcontainers.DockerClientFactory   : Docker host IP address is localhost
+2026-06-06T15:33:51.166+03:00  INFO 15332 --- [Test worker] org.testcontainers.DockerClientFactory   : Connected to docker: 
+  Server Version: 28.0.4
+  API Version: 1.48
+  Operating System: Docker Desktop
+  Total Memory: 15858 MB
+  Labels: 
+    com.docker.desktop.address=npipe://\\.\pipe\docker_cli
+2026-06-06T15:33:51.322+03:00  INFO 15332 --- [Test worker] tc.testcontainers/ryuk:0.14.0            : Pulling docker image: testcontainers/ryuk:0.14.0. Please be patient; this may take some time but only needs to be done once.
+2026-06-06T15:33:53.296+03:00  INFO 15332 --- [docker-java-stream-2135217201] tc.testcontainers/ryuk:0.14.0            : Starting to pull image
+2026-06-06T15:33:53.325+03:00  INFO 15332 --- [docker-java-stream-2135217201] tc.testcontainers/ryuk:0.14.0            : Pulling image layers:  0 pending,  0 downloaded,  0 extracted, (0 bytes/0 bytes)
+2026-06-06T15:33:56.111+03:00  INFO 15332 --- [docker-java-stream-2135217201] tc.testcontainers/ryuk:0.14.0            : Pulling image layers:  1 pending,  1 downloaded,  0 extracted, (2 MB/? MB)
+2026-06-06T15:33:56.114+03:00  INFO 15332 --- [docker-java-stream-2135217201] tc.testcontainers/ryuk:0.14.0            : Pulling image layers:  0 pending,  2 downloaded,  0 extracted, (2 MB/2 MB)
+2026-06-06T15:33:56.118+03:00  INFO 15332 --- [docker-java-stream-2135217201] tc.testcontainers/ryuk:0.14.0            : Pulling image layers:  0 pending,  2 downloaded,  1 extracted, (2 MB/2 MB)
+2026-06-06T15:33:56.184+03:00  INFO 15332 --- [docker-java-stream-2135217201] tc.testcontainers/ryuk:0.14.0            : Pulling image layers:  0 pending,  2 downloaded,  2 extracted, (2 MB/2 MB)
+2026-06-06T15:33:56.189+03:00  INFO 15332 --- [docker-java-stream-2135217201] tc.testcontainers/ryuk:0.14.0            : Pull complete. 2 layers, pulled in 2s (downloaded 2 MB at 1 MB/s)
+2026-06-06T15:33:56.189+03:00  INFO 15332 --- [Test worker] tc.testcontainers/ryuk:0.14.0            : Image testcontainers/ryuk:0.14.0 pull took PT4.8676302S
+2026-06-06T15:33:56.319+03:00  INFO 15332 --- [Test worker] tc.testcontainers/ryuk:0.14.0            : Creating container for image: testcontainers/ryuk:0.14.0
+2026-06-06T15:33:56.512+03:00  INFO 15332 --- [Test worker] tc.testcontainers/ryuk:0.14.0            : Container testcontainers/ryuk:0.14.0 is starting: b7486ccf51565e87fa404b1e0d6c5cb602200fc2d322f6d98f70a57c17874061
+2026-06-06T15:33:56.995+03:00  INFO 15332 --- [Test worker] tc.testcontainers/ryuk:0.14.0            : Container testcontainers/ryuk:0.14.0 started in PT0.6751604S
+2026-06-06T15:33:57.003+03:00  INFO 15332 --- [Test worker] o.t.utility.RyukResourceReaper           : Ryuk started - will monitor and terminate Testcontainers containers on JVM exit
+2026-06-06T15:33:57.003+03:00  INFO 15332 --- [Test worker] org.testcontainers.DockerClientFactory   : Checking the system...
+2026-06-06T15:33:57.005+03:00  INFO 15332 --- [Test worker] org.testcontainers.DockerClientFactory   : ✔︎ Docker server version should be at least 1.6.0
+2026-06-06T15:33:57.007+03:00  INFO 15332 --- [Test worker] tc.postgres:latest                       : Creating container for image: postgres:latest
+2026-06-06T15:33:57.108+03:00  INFO 15332 --- [Test worker] tc.postgres:latest                       : Container postgres:latest is starting: 338331aa3b1c95d86cc6e6dab108f53bd2d5231179c14ac693e1db1913de71e3
+2026-06-06T15:33:58.730+03:00  INFO 15332 --- [Test worker] tc.postgres:latest                       : Container postgres:latest started in PT1.7233777S
+2026-06-06T15:33:58.731+03:00  INFO 15332 --- [Test worker] tc.postgres:latest                       : Container is started (JDBC URL: jdbc:postgresql://localhost:53313/test?loggerLevel=OFF)
+2026-06-06T15:33:59.636+03:00  INFO 15332 --- [Test worker] liquibase.database                       : Set default schema name to public
+2026-06-06T15:34:11.605+03:00  INFO 15332 --- [Test worker] liquibase.changelog                      : Creating database changelog table with name: public.databasechangelog
+2026-06-06T15:34:11.714+03:00  INFO 15332 --- [Test worker] liquibase.changelog                      : Reading from public.databasechangelog
+2026-06-06T15:34:11.769+03:00  INFO 15332 --- [Test worker] liquibase.snapshot                       : Creating snapshot
+2026-06-06T15:34:11.964+03:00  INFO 15332 --- [Test worker] liquibase.lockservice                    : Successfully acquired change log lock
+2026-06-06T15:34:11.968+03:00  INFO 15332 --- [Test worker] liquibase.command                        : Using deploymentId: 0749239075
+2026-06-06T15:34:11.976+03:00  INFO 15332 --- [Test worker] liquibase.changelog                      : Reading from public.databasechangelog
+2026-06-06T15:34:12.074+03:00  INFO 15332 --- [Test worker] liquibase.ui                             : Running Changeset: db/changelog/db.changelog-1.0.sql::001-create-users::tatyana-zagaynova
+2026-06-06T15:34:12.124+03:00  INFO 15332 --- [Test worker] liquibase.changelog                      : Custom SQL executed
+2026-06-06T15:34:12.129+03:00  INFO 15332 --- [Test worker] liquibase.changelog                      : ChangeSet db/changelog/db.changelog-1.0.sql::001-create-users::tatyana-zagaynova ran successfully in 49ms
+2026-06-06T15:34:12.156+03:00  INFO 15332 --- [Test worker] liquibase.ui                             : Running Changeset: db/changelog/db.changelog-1.0.sql::002-create-task::tatyana-zagaynova
+2026-06-06T15:34:12.178+03:00  INFO 15332 --- [Test worker] liquibase.changelog                      : Custom SQL executed
+2026-06-06T15:34:12.181+03:00  INFO 15332 --- [Test worker] liquibase.changelog                      : ChangeSet db/changelog/db.changelog-1.0.sql::002-create-task::tatyana-zagaynova ran successfully in 22ms
+2026-06-06T15:34:12.189+03:00  INFO 15332 --- [Test worker] liquibase.ui                             : Running Changeset: db/changelog/db.changelog-1.0.sql::003-create-time_entry::tatyana-zagaynova
+2026-06-06T15:34:12.200+03:00  INFO 15332 --- [Test worker] liquibase.changelog                      : Custom SQL executed
+2026-06-06T15:34:12.203+03:00  INFO 15332 --- [Test worker] liquibase.changelog                      : ChangeSet db/changelog/db.changelog-1.0.sql::003-create-time_entry::tatyana-zagaynova ran successfully in 13ms
+2026-06-06T15:34:12.228+03:00  INFO 15332 --- [Test worker] liquibase.util                           : UPDATE SUMMARY
+2026-06-06T15:34:12.230+03:00  INFO 15332 --- [Test worker] liquibase.util                           : Run:                          3
+2026-06-06T15:34:12.230+03:00  INFO 15332 --- [Test worker] liquibase.util                           : Previously run:               0
+2026-06-06T15:34:12.230+03:00  INFO 15332 --- [Test worker] liquibase.util                           : Filtered out:                 0
+2026-06-06T15:34:12.231+03:00  INFO 15332 --- [Test worker] liquibase.util                           : -------------------------------
+2026-06-06T15:34:12.231+03:00  INFO 15332 --- [Test worker] liquibase.util                           : Total change sets:            3
+2026-06-06T15:34:12.235+03:00  INFO 15332 --- [Test worker] liquibase.util                           : Update summary generated
+2026-06-06T15:34:12.244+03:00  INFO 15332 --- [Test worker] liquibase.command                        : Update command completed successfully.
+2026-06-06T15:34:12.245+03:00  INFO 15332 --- [Test worker] liquibase.ui                             : Liquibase: Update has been successful. Rows affected: 0
+2026-06-06T15:34:12.255+03:00  INFO 15332 --- [Test worker] liquibase.lockservice                    : Successfully released change log lock
+2026-06-06T15:34:12.260+03:00  INFO 15332 --- [Test worker] liquibase.command                        : Command execution complete
+2026-06-06T15:34:12.487+03:00  INFO 15332 --- [Test worker] com.zaxxer.hikari.HikariDataSource       : HikariPool-1 - Starting...
+2026-06-06T15:34:12.543+03:00  INFO 15332 --- [Test worker] com.zaxxer.hikari.pool.HikariPool        : HikariPool-1 - Added connection org.postgresql.jdbc.PgConnection@23a6b5c3
+2026-06-06T15:34:12.551+03:00  INFO 15332 --- [Test worker] com.zaxxer.hikari.HikariDataSource       : HikariPool-1 - Start completed.
+2026-06-06T15:34:12.686+03:00  INFO 15332 --- [Test worker] org.hibernate.orm.jpa                    : HHH008540: Processing PersistenceUnitInfo [name: default]
+2026-06-06T15:34:12.923+03:00  INFO 15332 --- [Test worker] org.hibernate.orm.core                   : HHH000001: Hibernate ORM core version 7.2.12.Final
+2026-06-06T15:34:14.651+03:00  INFO 15332 --- [Test worker] o.s.o.j.p.SpringPersistenceUnitInfo      : No LoadTimeWeaver setup: ignoring JPA class transformer
+2026-06-06T15:34:14.974+03:00  INFO 15332 --- [Test worker] org.hibernate.orm.connections.pooling    : HHH10001005: Database info:
+	Database JDBC URL [jdbc:postgresql://localhost:53313/test?loggerLevel=OFF]
+	Database driver: PostgreSQL JDBC Driver
+	Database dialect: PostgreSQLDialect
+	Database version: 17.5
+	Default catalog/schema: test/public
+	Autocommit mode: undefined/unknown
+	Isolation level: READ_COMMITTED [default READ_COMMITTED]
+	JDBC fetch size: none
+	Pool: DataSourceConnectionProvider
+	Minimum pool size: undefined/unknown
+	Maximum pool size: undefined/unknown
+2026-06-06T15:34:17.858+03:00  INFO 15332 --- [Test worker] org.hibernate.orm.core                   : HHH000489: No JTA platform available (set 'hibernate.transaction.jta.platform' to enable JTA platform integration)
+2026-06-06T15:34:17.871+03:00  INFO 15332 --- [Test worker] j.LocalContainerEntityManagerFactoryBean : Initialized JPA EntityManagerFactory for persistence unit 'default'
+2026-06-06T15:34:18.018+03:00  INFO 15332 --- [Test worker] o.s.d.j.r.query.QueryEnhancerFactories   : Hibernate is in classpath; If applicable, HQL parser will be used.
+2026-06-06T15:34:18.412+03:00  INFO 15332 --- [Test worker] eAuthenticationProviderManagerConfigurer : Global AuthenticationManager configured with AuthenticationProvider bean with name authenticationProvider
+2026-06-06T15:34:18.412+03:00  WARN 15332 --- [Test worker] r$InitializeUserDetailsManagerConfigurer : Global AuthenticationManager configured with an AuthenticationProvider bean. UserDetailsService beans will not be used by Spring Security for automatically configuring username/password login. Consider removing the AuthenticationProvider bean. Alternatively, consider using the UserDetailsService in a manually instantiated DaoAuthenticationProvider. If the current configuration is intentional, to turn off this warning, increase the logging level of 'org.springframework.security.config.annotation.authentication.configuration.InitializeUserDetailsBeanManagerConfigurer' to ERROR
+2026-06-06T15:34:18.810+03:00  WARN 15332 --- [Test worker] JpaBaseConfiguration$JpaWebConfiguration : spring.jpa.open-in-view is enabled by default. Therefore, database queries may be performed during view rendering. Explicitly configure spring.jpa.open-in-view to disable this warning
+2026-06-06T15:34:20.717+03:00  INFO 15332 --- [Test worker] c.e.t.TimeTrackerApplicationTests        : Started TimeTrackerApplicationTests in 34.551 seconds (process running for 38.081)
+2026-06-06T15:34:20.728+03:00  WARN 15332 --- [Test worker] o.s.core.events.SpringDocAppInitializer  : SpringDoc /v3/api-docs endpoint is enabled by default. To disable it in production, set the property 'springdoc.api-docs.enabled=false'
+2026-06-06T15:34:20.728+03:00  WARN 15332 --- [Test worker] o.s.core.events.SpringDocAppInitializer  : SpringDoc /swagger-ui.html endpoint is enabled by default. To disable it in production, set the property 'springdoc.swagger-ui.enabled=false'
+2026-06-06T15:34:21.977+03:00  INFO 15332 --- [Test worker] c.e.timetracker.service.UserService      : Deleting user 1
+2026-06-06T15:34:22.061+03:00  WARN 15332 --- [Test worker] c.e.timetracker.service.UserService      : User with id 1 not found
+2026-06-06T15:34:22.623+03:00  INFO 15332 --- [SpringApplicationShutdownHook] j.LocalContainerEntityManagerFactoryBean : Closing JPA EntityManagerFactory for persistence unit 'default'
+2026-06-06T15:34:22.865+03:00  INFO 15332 --- [SpringApplicationShutdownHook] com.zaxxer.hikari.HikariDataSource       : HikariPool-1 - Shutdown initiated...
+2026-06-06T15:34:22.875+03:00  INFO 15332 --- [SpringApplicationShutdownHook] com.zaxxer.hikari.HikariDataSource       : HikariPool-1 - Shutdown completed.
+2026-06-06T15:47:41.373+03:00  INFO 14372 --- [Test worker] c.e.t.TimeTrackerApplicationTests        : Starting TimeTrackerApplicationTests using Java 17.0.12 with PID 14372 (started by warew in D:\Projects\time-tracker)
+2026-06-06T15:47:41.377+03:00  INFO 14372 --- [Test worker] c.e.t.TimeTrackerApplicationTests        : No active profile set, falling back to 1 default profile: "default"
+2026-06-06T15:47:43.788+03:00  INFO 14372 --- [Test worker] .s.d.r.c.RepositoryConfigurationDelegate : Multiple Spring Data modules found, entering strict repository configuration mode
+2026-06-06T15:47:43.794+03:00  INFO 14372 --- [Test worker] .s.d.r.c.RepositoryConfigurationDelegate : Bootstrapping Spring Data JDBC repositories in DEFAULT mode.
+2026-06-06T15:47:43.923+03:00  INFO 14372 --- [Test worker] .RepositoryConfigurationExtensionSupport : Spring Data JDBC - Could not safely identify store assignment for repository candidate interface com.example.timetracker.repository.TaskRepository; If you want this repository to be a JDBC repository, consider annotating your entities with one of these annotations: org.springframework.data.relational.core.mapping.Table.
+2026-06-06T15:47:43.926+03:00  INFO 14372 --- [Test worker] .RepositoryConfigurationExtensionSupport : Spring Data JDBC - Could not safely identify store assignment for repository candidate interface com.example.timetracker.repository.TimeEntryRepository; If you want this repository to be a JDBC repository, consider annotating your entities with one of these annotations: org.springframework.data.relational.core.mapping.Table.
+2026-06-06T15:47:43.930+03:00  INFO 14372 --- [Test worker] .RepositoryConfigurationExtensionSupport : Spring Data JDBC - Could not safely identify store assignment for repository candidate interface com.example.timetracker.repository.UserRepository; If you want this repository to be a JDBC repository, consider annotating your entities with one of these annotations: org.springframework.data.relational.core.mapping.Table.
+2026-06-06T15:47:43.932+03:00  INFO 14372 --- [Test worker] .s.d.r.c.RepositoryConfigurationDelegate : Finished Spring Data repository scanning in 107 ms. Found 0 JDBC repository interfaces.
+2026-06-06T15:47:43.955+03:00  INFO 14372 --- [Test worker] .s.d.r.c.RepositoryConfigurationDelegate : Multiple Spring Data modules found, entering strict repository configuration mode
+2026-06-06T15:47:43.958+03:00  INFO 14372 --- [Test worker] .s.d.r.c.RepositoryConfigurationDelegate : Bootstrapping Spring Data JPA repositories in DEFAULT mode.
+2026-06-06T15:47:44.024+03:00  INFO 14372 --- [Test worker] .s.d.r.c.RepositoryConfigurationDelegate : Finished Spring Data repository scanning in 57 ms. Found 3 JPA repository interfaces.
+2026-06-06T15:47:45.112+03:00  INFO 14372 --- [Test worker] org.testcontainers.images.PullPolicy     : Image pull policy will be performed by: DefaultPullPolicy()
+2026-06-06T15:47:45.122+03:00  INFO 14372 --- [Test worker] o.t.utility.ImageNameSubstitutor         : Image name substitution will be performed by: DefaultImageNameSubstitutor (composite of 'ConfigurationFileImageNameSubstitutor' and 'PrefixingImageNameSubstitutor')
+2026-06-06T15:47:45.203+03:00  INFO 14372 --- [Test worker] org.testcontainers.DockerClientFactory   : Testcontainers version: 2.0.5
+2026-06-06T15:47:45.986+03:00  INFO 14372 --- [Test worker] o.t.d.DockerClientProviderStrategy       : Loaded org.testcontainers.dockerclient.NpipeSocketClientProviderStrategy from ~/.testcontainers.properties, will try it first
+2026-06-06T15:47:46.746+03:00  INFO 14372 --- [Test worker] o.t.d.DockerClientProviderStrategy       : Found Docker environment with local Npipe socket (npipe:////./pipe/docker_engine)
+2026-06-06T15:47:46.749+03:00  INFO 14372 --- [Test worker] org.testcontainers.DockerClientFactory   : Docker host IP address is localhost
+2026-06-06T15:47:46.784+03:00  INFO 14372 --- [Test worker] org.testcontainers.DockerClientFactory   : Connected to docker: 
+  Server Version: 28.0.4
+  API Version: 1.48
+  Operating System: Docker Desktop
+  Total Memory: 15858 MB
+  Labels: 
+    com.docker.desktop.address=npipe://\\.\pipe\docker_cli
+2026-06-06T15:47:46.956+03:00  INFO 14372 --- [Test worker] tc.testcontainers/ryuk:0.14.0            : Creating container for image: testcontainers/ryuk:0.14.0
+2026-06-06T15:47:47.420+03:00  INFO 14372 --- [Test worker] tc.testcontainers/ryuk:0.14.0            : Container testcontainers/ryuk:0.14.0 is starting: 53d973c42a9655cfd221bb86bde56129e734a87f98a3bff2a4092cea4124c853
+2026-06-06T15:47:48.152+03:00  INFO 14372 --- [Test worker] tc.testcontainers/ryuk:0.14.0            : Container testcontainers/ryuk:0.14.0 started in PT1.1964238S
+2026-06-06T15:47:48.168+03:00  INFO 14372 --- [Test worker] o.t.utility.RyukResourceReaper           : Ryuk started - will monitor and terminate Testcontainers containers on JVM exit
+2026-06-06T15:47:48.169+03:00  INFO 14372 --- [Test worker] org.testcontainers.DockerClientFactory   : Checking the system...
+2026-06-06T15:47:48.171+03:00  INFO 14372 --- [Test worker] org.testcontainers.DockerClientFactory   : ✔︎ Docker server version should be at least 1.6.0
+2026-06-06T15:47:48.173+03:00  INFO 14372 --- [Test worker] tc.postgres:latest                       : Creating container for image: postgres:latest
+2026-06-06T15:47:48.287+03:00  INFO 14372 --- [Test worker] tc.postgres:latest                       : Container postgres:latest is starting: dca066ee0bce9af2c3aa39db4aaba9b90b6e06c765b957c0aa37b8374287c67a
+2026-06-06T15:47:49.924+03:00  INFO 14372 --- [Test worker] tc.postgres:latest                       : Container postgres:latest started in PT1.7506812S
+2026-06-06T15:47:49.927+03:00  INFO 14372 --- [Test worker] tc.postgres:latest                       : Container is started (JDBC URL: jdbc:postgresql://localhost:55072/test?loggerLevel=OFF)
+2026-06-06T15:47:50.972+03:00  INFO 14372 --- [Test worker] liquibase.database                       : Set default schema name to public
+2026-06-06T15:48:00.271+03:00  INFO 14372 --- [Test worker] liquibase.changelog                      : Creating database changelog table with name: public.databasechangelog
+2026-06-06T15:48:00.322+03:00  INFO 14372 --- [Test worker] liquibase.changelog                      : Reading from public.databasechangelog
+2026-06-06T15:48:00.361+03:00  INFO 14372 --- [Test worker] liquibase.snapshot                       : Creating snapshot
+2026-06-06T15:48:00.472+03:00  INFO 14372 --- [Test worker] liquibase.lockservice                    : Successfully acquired change log lock
+2026-06-06T15:48:00.474+03:00  INFO 14372 --- [Test worker] liquibase.command                        : Using deploymentId: 0750070317
+2026-06-06T15:48:00.478+03:00  INFO 14372 --- [Test worker] liquibase.changelog                      : Reading from public.databasechangelog
+2026-06-06T15:48:00.515+03:00  INFO 14372 --- [Test worker] liquibase.ui                             : Running Changeset: db/changelog/db.changelog-1.0.sql::001-create-users::tatyana-zagaynova
+2026-06-06T15:48:00.545+03:00  INFO 14372 --- [Test worker] liquibase.changelog                      : Custom SQL executed
+2026-06-06T15:48:00.549+03:00  INFO 14372 --- [Test worker] liquibase.changelog                      : ChangeSet db/changelog/db.changelog-1.0.sql::001-create-users::tatyana-zagaynova ran successfully in 30ms
+2026-06-06T15:48:00.561+03:00  INFO 14372 --- [Test worker] liquibase.ui                             : Running Changeset: db/changelog/db.changelog-1.0.sql::002-create-task::tatyana-zagaynova
+2026-06-06T15:48:00.571+03:00  INFO 14372 --- [Test worker] liquibase.changelog                      : Custom SQL executed
+2026-06-06T15:48:00.573+03:00  INFO 14372 --- [Test worker] liquibase.changelog                      : ChangeSet db/changelog/db.changelog-1.0.sql::002-create-task::tatyana-zagaynova ran successfully in 12ms
+2026-06-06T15:48:00.578+03:00  INFO 14372 --- [Test worker] liquibase.ui                             : Running Changeset: db/changelog/db.changelog-1.0.sql::003-create-time_entry::tatyana-zagaynova
+2026-06-06T15:48:00.587+03:00  INFO 14372 --- [Test worker] liquibase.changelog                      : Custom SQL executed
+2026-06-06T15:48:00.588+03:00  INFO 14372 --- [Test worker] liquibase.changelog                      : ChangeSet db/changelog/db.changelog-1.0.sql::003-create-time_entry::tatyana-zagaynova ran successfully in 10ms
+2026-06-06T15:48:00.605+03:00  INFO 14372 --- [Test worker] liquibase.util                           : UPDATE SUMMARY
+2026-06-06T15:48:00.605+03:00  INFO 14372 --- [Test worker] liquibase.util                           : Run:                          3
+2026-06-06T15:48:00.606+03:00  INFO 14372 --- [Test worker] liquibase.util                           : Previously run:               0
+2026-06-06T15:48:00.606+03:00  INFO 14372 --- [Test worker] liquibase.util                           : Filtered out:                 0
+2026-06-06T15:48:00.606+03:00  INFO 14372 --- [Test worker] liquibase.util                           : -------------------------------
+2026-06-06T15:48:00.606+03:00  INFO 14372 --- [Test worker] liquibase.util                           : Total change sets:            3
+2026-06-06T15:48:00.608+03:00  INFO 14372 --- [Test worker] liquibase.util                           : Update summary generated
+2026-06-06T15:48:00.613+03:00  INFO 14372 --- [Test worker] liquibase.command                        : Update command completed successfully.
+2026-06-06T15:48:00.614+03:00  INFO 14372 --- [Test worker] liquibase.ui                             : Liquibase: Update has been successful. Rows affected: 0
+2026-06-06T15:48:00.621+03:00  INFO 14372 --- [Test worker] liquibase.lockservice                    : Successfully released change log lock
+2026-06-06T15:48:00.624+03:00  INFO 14372 --- [Test worker] liquibase.command                        : Command execution complete
+2026-06-06T15:48:00.736+03:00  INFO 14372 --- [Test worker] com.zaxxer.hikari.HikariDataSource       : HikariPool-1 - Starting...
+2026-06-06T15:48:00.772+03:00  INFO 14372 --- [Test worker] com.zaxxer.hikari.pool.HikariPool        : HikariPool-1 - Added connection org.postgresql.jdbc.PgConnection@54dd239c
+2026-06-06T15:48:00.776+03:00  INFO 14372 --- [Test worker] com.zaxxer.hikari.HikariDataSource       : HikariPool-1 - Start completed.
+2026-06-06T15:48:00.860+03:00  INFO 14372 --- [Test worker] org.hibernate.orm.jpa                    : HHH008540: Processing PersistenceUnitInfo [name: default]
+2026-06-06T15:48:00.973+03:00  INFO 14372 --- [Test worker] org.hibernate.orm.core                   : HHH000001: Hibernate ORM core version 7.2.12.Final
+2026-06-06T15:48:01.793+03:00  INFO 14372 --- [Test worker] o.s.o.j.p.SpringPersistenceUnitInfo      : No LoadTimeWeaver setup: ignoring JPA class transformer
+2026-06-06T15:48:01.958+03:00  INFO 14372 --- [Test worker] org.hibernate.orm.connections.pooling    : HHH10001005: Database info:
+	Database JDBC URL [jdbc:postgresql://localhost:55072/test?loggerLevel=OFF]
+	Database driver: PostgreSQL JDBC Driver
+	Database dialect: PostgreSQLDialect
+	Database version: 17.5
+	Default catalog/schema: test/public
+	Autocommit mode: undefined/unknown
+	Isolation level: READ_COMMITTED [default READ_COMMITTED]
+	JDBC fetch size: none
+	Pool: DataSourceConnectionProvider
+	Minimum pool size: undefined/unknown
+	Maximum pool size: undefined/unknown
+2026-06-06T15:48:03.494+03:00  INFO 14372 --- [Test worker] org.hibernate.orm.core                   : HHH000489: No JTA platform available (set 'hibernate.transaction.jta.platform' to enable JTA platform integration)
+2026-06-06T15:48:03.503+03:00  INFO 14372 --- [Test worker] j.LocalContainerEntityManagerFactoryBean : Initialized JPA EntityManagerFactory for persistence unit 'default'
+2026-06-06T15:48:03.659+03:00  INFO 14372 --- [Test worker] o.s.d.j.r.query.QueryEnhancerFactories   : Hibernate is in classpath; If applicable, HQL parser will be used.
+2026-06-06T15:48:03.955+03:00  INFO 14372 --- [Test worker] eAuthenticationProviderManagerConfigurer : Global AuthenticationManager configured with AuthenticationProvider bean with name authenticationProvider
+2026-06-06T15:48:03.956+03:00  WARN 14372 --- [Test worker] r$InitializeUserDetailsManagerConfigurer : Global AuthenticationManager configured with an AuthenticationProvider bean. UserDetailsService beans will not be used by Spring Security for automatically configuring username/password login. Consider removing the AuthenticationProvider bean. Alternatively, consider using the UserDetailsService in a manually instantiated DaoAuthenticationProvider. If the current configuration is intentional, to turn off this warning, increase the logging level of 'org.springframework.security.config.annotation.authentication.configuration.InitializeUserDetailsBeanManagerConfigurer' to ERROR
+2026-06-06T15:48:04.239+03:00  WARN 14372 --- [Test worker] JpaBaseConfiguration$JpaWebConfiguration : spring.jpa.open-in-view is enabled by default. Therefore, database queries may be performed during view rendering. Explicitly configure spring.jpa.open-in-view to disable this warning
+2026-06-06T15:48:05.611+03:00  INFO 14372 --- [Test worker] c.e.t.TimeTrackerApplicationTests        : Started TimeTrackerApplicationTests in 24.966 seconds (process running for 28.776)
+2026-06-06T15:48:05.616+03:00  WARN 14372 --- [Test worker] o.s.core.events.SpringDocAppInitializer  : SpringDoc /v3/api-docs endpoint is enabled by default. To disable it in production, set the property 'springdoc.api-docs.enabled=false'
+2026-06-06T15:48:05.616+03:00  WARN 14372 --- [Test worker] o.s.core.events.SpringDocAppInitializer  : SpringDoc /swagger-ui.html endpoint is enabled by default. To disable it in production, set the property 'springdoc.swagger-ui.enabled=false'
+2026-06-06T15:48:06.701+03:00  INFO 14372 --- [Test worker] c.e.timetracker.service.UserService      : Deleting user 1
+2026-06-06T15:48:06.782+03:00  INFO 14372 --- [Test worker] c.e.timetracker.service.UserService      : User 1 deleted
+2026-06-06T15:48:07.293+03:00  INFO 14372 --- [SpringApplicationShutdownHook] j.LocalContainerEntityManagerFactoryBean : Closing JPA EntityManagerFactory for persistence unit 'default'
+2026-06-06T15:48:07.543+03:00  INFO 14372 --- [SpringApplicationShutdownHook] com.zaxxer.hikari.HikariDataSource       : HikariPool-1 - Shutdown initiated...
+2026-06-06T15:48:07.553+03:00  INFO 14372 --- [SpringApplicationShutdownHook] com.zaxxer.hikari.HikariDataSource       : HikariPool-1 - Shutdown completed.
+2026-06-06T15:50:53.788+03:00  INFO 12396 --- [Test worker] c.e.t.TimeTrackerApplicationTests        : Starting TimeTrackerApplicationTests using Java 17.0.12 with PID 12396 (started by warew in D:\Projects\time-tracker)
+2026-06-06T15:50:53.790+03:00  INFO 12396 --- [Test worker] c.e.t.TimeTrackerApplicationTests        : No active profile set, falling back to 1 default profile: "default"
+2026-06-06T15:50:55.899+03:00  INFO 12396 --- [Test worker] .s.d.r.c.RepositoryConfigurationDelegate : Multiple Spring Data modules found, entering strict repository configuration mode
+2026-06-06T15:50:55.904+03:00  INFO 12396 --- [Test worker] .s.d.r.c.RepositoryConfigurationDelegate : Bootstrapping Spring Data JDBC repositories in DEFAULT mode.
+2026-06-06T15:50:56.005+03:00  INFO 12396 --- [Test worker] .RepositoryConfigurationExtensionSupport : Spring Data JDBC - Could not safely identify store assignment for repository candidate interface com.example.timetracker.repository.TaskRepository; If you want this repository to be a JDBC repository, consider annotating your entities with one of these annotations: org.springframework.data.relational.core.mapping.Table.
+2026-06-06T15:50:56.008+03:00  INFO 12396 --- [Test worker] .RepositoryConfigurationExtensionSupport : Spring Data JDBC - Could not safely identify store assignment for repository candidate interface com.example.timetracker.repository.TimeEntryRepository; If you want this repository to be a JDBC repository, consider annotating your entities with one of these annotations: org.springframework.data.relational.core.mapping.Table.
+2026-06-06T15:50:56.012+03:00  INFO 12396 --- [Test worker] .RepositoryConfigurationExtensionSupport : Spring Data JDBC - Could not safely identify store assignment for repository candidate interface com.example.timetracker.repository.UserRepository; If you want this repository to be a JDBC repository, consider annotating your entities with one of these annotations: org.springframework.data.relational.core.mapping.Table.
+2026-06-06T15:50:56.014+03:00  INFO 12396 --- [Test worker] .s.d.r.c.RepositoryConfigurationDelegate : Finished Spring Data repository scanning in 84 ms. Found 0 JDBC repository interfaces.
+2026-06-06T15:50:56.040+03:00  INFO 12396 --- [Test worker] .s.d.r.c.RepositoryConfigurationDelegate : Multiple Spring Data modules found, entering strict repository configuration mode
+2026-06-06T15:50:56.044+03:00  INFO 12396 --- [Test worker] .s.d.r.c.RepositoryConfigurationDelegate : Bootstrapping Spring Data JPA repositories in DEFAULT mode.
+2026-06-06T15:50:56.125+03:00  INFO 12396 --- [Test worker] .s.d.r.c.RepositoryConfigurationDelegate : Finished Spring Data repository scanning in 68 ms. Found 3 JPA repository interfaces.
+2026-06-06T15:50:57.192+03:00  INFO 12396 --- [Test worker] org.testcontainers.images.PullPolicy     : Image pull policy will be performed by: DefaultPullPolicy()
+2026-06-06T15:50:57.200+03:00  INFO 12396 --- [Test worker] o.t.utility.ImageNameSubstitutor         : Image name substitution will be performed by: DefaultImageNameSubstitutor (composite of 'ConfigurationFileImageNameSubstitutor' and 'PrefixingImageNameSubstitutor')
+2026-06-06T15:50:57.247+03:00  INFO 12396 --- [Test worker] org.testcontainers.DockerClientFactory   : Testcontainers version: 2.0.5
+2026-06-06T15:50:57.825+03:00  INFO 12396 --- [Test worker] o.t.d.DockerClientProviderStrategy       : Loaded org.testcontainers.dockerclient.NpipeSocketClientProviderStrategy from ~/.testcontainers.properties, will try it first
+2026-06-06T15:50:58.446+03:00  INFO 12396 --- [Test worker] o.t.d.DockerClientProviderStrategy       : Found Docker environment with local Npipe socket (npipe:////./pipe/docker_engine)
+2026-06-06T15:50:58.448+03:00  INFO 12396 --- [Test worker] org.testcontainers.DockerClientFactory   : Docker host IP address is localhost
+2026-06-06T15:50:58.476+03:00  INFO 12396 --- [Test worker] org.testcontainers.DockerClientFactory   : Connected to docker: 
+  Server Version: 28.0.4
+  API Version: 1.48
+  Operating System: Docker Desktop
+  Total Memory: 15858 MB
+  Labels: 
+    com.docker.desktop.address=npipe://\\.\pipe\docker_cli
+2026-06-06T15:50:58.612+03:00  INFO 12396 --- [Test worker] tc.testcontainers/ryuk:0.14.0            : Creating container for image: testcontainers/ryuk:0.14.0
+2026-06-06T15:50:58.961+03:00  INFO 12396 --- [Test worker] tc.testcontainers/ryuk:0.14.0            : Container testcontainers/ryuk:0.14.0 is starting: e97b4e5136534f39c24d9aac27719d7ef7a6e85bbfec15b682e809d04ccdb73b
+2026-06-06T15:50:59.516+03:00  INFO 12396 --- [Test worker] tc.testcontainers/ryuk:0.14.0            : Container testcontainers/ryuk:0.14.0 started in PT0.9041602S
+2026-06-06T15:50:59.527+03:00  INFO 12396 --- [Test worker] o.t.utility.RyukResourceReaper           : Ryuk started - will monitor and terminate Testcontainers containers on JVM exit
+2026-06-06T15:50:59.528+03:00  INFO 12396 --- [Test worker] org.testcontainers.DockerClientFactory   : Checking the system...
+2026-06-06T15:50:59.530+03:00  INFO 12396 --- [Test worker] org.testcontainers.DockerClientFactory   : ✔︎ Docker server version should be at least 1.6.0
+2026-06-06T15:50:59.531+03:00  INFO 12396 --- [Test worker] tc.postgres:latest                       : Creating container for image: postgres:latest
+2026-06-06T15:50:59.658+03:00  INFO 12396 --- [Test worker] tc.postgres:latest                       : Container postgres:latest is starting: 530bb1e8bc468b1ab0091ded06dc6a65ffb41fdb0fcde1adae3a05aeb201b8be
+2026-06-06T15:51:01.429+03:00  INFO 12396 --- [Test worker] tc.postgres:latest                       : Container postgres:latest started in PT1.8983616S
+2026-06-06T15:51:01.432+03:00  INFO 12396 --- [Test worker] tc.postgres:latest                       : Container is started (JDBC URL: jdbc:postgresql://localhost:56971/test?loggerLevel=OFF)
+2026-06-06T15:51:02.264+03:00  INFO 12396 --- [Test worker] liquibase.database                       : Set default schema name to public
+2026-06-06T15:51:03.193+03:00  INFO 12396 --- [Test worker] liquibase.changelog                      : Creating database changelog table with name: public.databasechangelog
+2026-06-06T15:51:03.253+03:00  INFO 12396 --- [Test worker] liquibase.changelog                      : Reading from public.databasechangelog
+2026-06-06T15:51:03.291+03:00  INFO 12396 --- [Test worker] liquibase.snapshot                       : Creating snapshot
+2026-06-06T15:51:03.391+03:00  INFO 12396 --- [Test worker] liquibase.lockservice                    : Successfully acquired change log lock
+2026-06-06T15:51:03.394+03:00  INFO 12396 --- [Test worker] liquibase.command                        : Using deploymentId: 0750261763
+2026-06-06T15:51:03.399+03:00  INFO 12396 --- [Test worker] liquibase.changelog                      : Reading from public.databasechangelog
+2026-06-06T15:51:03.448+03:00  INFO 12396 --- [Test worker] liquibase.ui                             : Running Changeset: db/changelog/db.changelog-1.0.sql::001-create-users::tatyana-zagaynova
+2026-06-06T15:51:03.485+03:00  INFO 12396 --- [Test worker] liquibase.changelog                      : Custom SQL executed
+2026-06-06T15:51:03.491+03:00  INFO 12396 --- [Test worker] liquibase.changelog                      : ChangeSet db/changelog/db.changelog-1.0.sql::001-create-users::tatyana-zagaynova ran successfully in 38ms
+2026-06-06T15:51:03.508+03:00  INFO 12396 --- [Test worker] liquibase.ui                             : Running Changeset: db/changelog/db.changelog-1.0.sql::002-create-task::tatyana-zagaynova
+2026-06-06T15:51:03.519+03:00  INFO 12396 --- [Test worker] liquibase.changelog                      : Custom SQL executed
+2026-06-06T15:51:03.522+03:00  INFO 12396 --- [Test worker] liquibase.changelog                      : ChangeSet db/changelog/db.changelog-1.0.sql::002-create-task::tatyana-zagaynova ran successfully in 14ms
+2026-06-06T15:51:03.528+03:00  INFO 12396 --- [Test worker] liquibase.ui                             : Running Changeset: db/changelog/db.changelog-1.0.sql::003-create-time_entry::tatyana-zagaynova
+2026-06-06T15:51:03.537+03:00  INFO 12396 --- [Test worker] liquibase.changelog                      : Custom SQL executed
+2026-06-06T15:51:03.539+03:00  INFO 12396 --- [Test worker] liquibase.changelog                      : ChangeSet db/changelog/db.changelog-1.0.sql::003-create-time_entry::tatyana-zagaynova ran successfully in 10ms
+2026-06-06T15:51:03.558+03:00  INFO 12396 --- [Test worker] liquibase.util                           : UPDATE SUMMARY
+2026-06-06T15:51:03.558+03:00  INFO 12396 --- [Test worker] liquibase.util                           : Run:                          3
+2026-06-06T15:51:03.558+03:00  INFO 12396 --- [Test worker] liquibase.util                           : Previously run:               0
+2026-06-06T15:51:03.558+03:00  INFO 12396 --- [Test worker] liquibase.util                           : Filtered out:                 0
+2026-06-06T15:51:03.558+03:00  INFO 12396 --- [Test worker] liquibase.util                           : -------------------------------
+2026-06-06T15:51:03.558+03:00  INFO 12396 --- [Test worker] liquibase.util                           : Total change sets:            3
+2026-06-06T15:51:03.561+03:00  INFO 12396 --- [Test worker] liquibase.util                           : Update summary generated
+2026-06-06T15:51:03.568+03:00  INFO 12396 --- [Test worker] liquibase.command                        : Update command completed successfully.
+2026-06-06T15:51:03.569+03:00  INFO 12396 --- [Test worker] liquibase.ui                             : Liquibase: Update has been successful. Rows affected: 0
+2026-06-06T15:51:03.576+03:00  INFO 12396 --- [Test worker] liquibase.lockservice                    : Successfully released change log lock
+2026-06-06T15:51:03.580+03:00  INFO 12396 --- [Test worker] liquibase.command                        : Command execution complete
+2026-06-06T15:51:03.720+03:00  INFO 12396 --- [Test worker] com.zaxxer.hikari.HikariDataSource       : HikariPool-1 - Starting...
+2026-06-06T15:51:03.763+03:00  INFO 12396 --- [Test worker] com.zaxxer.hikari.pool.HikariPool        : HikariPool-1 - Added connection org.postgresql.jdbc.PgConnection@76cc6c28
+2026-06-06T15:51:03.767+03:00  INFO 12396 --- [Test worker] com.zaxxer.hikari.HikariDataSource       : HikariPool-1 - Start completed.
+2026-06-06T15:51:03.846+03:00  INFO 12396 --- [Test worker] org.hibernate.orm.jpa                    : HHH008540: Processing PersistenceUnitInfo [name: default]
+2026-06-06T15:51:04.027+03:00  INFO 12396 --- [Test worker] org.hibernate.orm.core                   : HHH000001: Hibernate ORM core version 7.2.12.Final
+2026-06-06T15:51:04.884+03:00  INFO 12396 --- [Test worker] o.s.o.j.p.SpringPersistenceUnitInfo      : No LoadTimeWeaver setup: ignoring JPA class transformer
+2026-06-06T15:51:05.047+03:00  INFO 12396 --- [Test worker] org.hibernate.orm.connections.pooling    : HHH10001005: Database info:
+	Database JDBC URL [jdbc:postgresql://localhost:56971/test?loggerLevel=OFF]
+	Database driver: PostgreSQL JDBC Driver
+	Database dialect: PostgreSQLDialect
+	Database version: 17.5
+	Default catalog/schema: test/public
+	Autocommit mode: undefined/unknown
+	Isolation level: READ_COMMITTED [default READ_COMMITTED]
+	JDBC fetch size: none
+	Pool: DataSourceConnectionProvider
+	Minimum pool size: undefined/unknown
+	Maximum pool size: undefined/unknown
+2026-06-06T15:51:06.736+03:00  INFO 12396 --- [Test worker] org.hibernate.orm.core                   : HHH000489: No JTA platform available (set 'hibernate.transaction.jta.platform' to enable JTA platform integration)
+2026-06-06T15:51:06.748+03:00  INFO 12396 --- [Test worker] j.LocalContainerEntityManagerFactoryBean : Initialized JPA EntityManagerFactory for persistence unit 'default'
+2026-06-06T15:51:06.921+03:00  INFO 12396 --- [Test worker] o.s.d.j.r.query.QueryEnhancerFactories   : Hibernate is in classpath; If applicable, HQL parser will be used.
+2026-06-06T15:51:07.346+03:00  INFO 12396 --- [Test worker] eAuthenticationProviderManagerConfigurer : Global AuthenticationManager configured with AuthenticationProvider bean with name authenticationProvider
+2026-06-06T15:51:07.347+03:00  WARN 12396 --- [Test worker] r$InitializeUserDetailsManagerConfigurer : Global AuthenticationManager configured with an AuthenticationProvider bean. UserDetailsService beans will not be used by Spring Security for automatically configuring username/password login. Consider removing the AuthenticationProvider bean. Alternatively, consider using the UserDetailsService in a manually instantiated DaoAuthenticationProvider. If the current configuration is intentional, to turn off this warning, increase the logging level of 'org.springframework.security.config.annotation.authentication.configuration.InitializeUserDetailsBeanManagerConfigurer' to ERROR
+2026-06-06T15:51:07.717+03:00  WARN 12396 --- [Test worker] JpaBaseConfiguration$JpaWebConfiguration : spring.jpa.open-in-view is enabled by default. Therefore, database queries may be performed during view rendering. Explicitly configure spring.jpa.open-in-view to disable this warning
+2026-06-06T15:51:09.172+03:00  INFO 12396 --- [Test worker] c.e.t.TimeTrackerApplicationTests        : Started TimeTrackerApplicationTests in 16.14 seconds (process running for 20.198)
+2026-06-06T15:51:09.180+03:00  WARN 12396 --- [Test worker] o.s.core.events.SpringDocAppInitializer  : SpringDoc /v3/api-docs endpoint is enabled by default. To disable it in production, set the property 'springdoc.api-docs.enabled=false'
+2026-06-06T15:51:09.181+03:00  WARN 12396 --- [Test worker] o.s.core.events.SpringDocAppInitializer  : SpringDoc /swagger-ui.html endpoint is enabled by default. To disable it in production, set the property 'springdoc.swagger-ui.enabled=false'
+2026-06-06T15:51:10.351+03:00  INFO 12396 --- [Test worker] c.e.timetracker.service.UserService      : Deleting user 1
+2026-06-06T15:51:10.436+03:00  INFO 12396 --- [Test worker] c.e.timetracker.service.UserService      : User 1 deleted
+2026-06-06T15:51:11.001+03:00  INFO 12396 --- [SpringApplicationShutdownHook] j.LocalContainerEntityManagerFactoryBean : Closing JPA EntityManagerFactory for persistence unit 'default'
+2026-06-06T15:51:11.239+03:00  INFO 12396 --- [SpringApplicationShutdownHook] com.zaxxer.hikari.HikariDataSource       : HikariPool-1 - Shutdown initiated...
+2026-06-06T15:51:11.251+03:00  INFO 12396 --- [SpringApplicationShutdownHook] com.zaxxer.hikari.HikariDataSource       : HikariPool-1 - Shutdown completed.
+2026-06-06T16:16:57.130+03:00  INFO 2400 --- [Test worker] c.e.t.TimeTrackerApplicationTests        : Starting TimeTrackerApplicationTests using Java 17.0.12 with PID 2400 (started by warew in D:\Projects\time-tracker)
+2026-06-06T16:16:57.133+03:00  INFO 2400 --- [Test worker] c.e.t.TimeTrackerApplicationTests        : No active profile set, falling back to 1 default profile: "default"
+2026-06-06T16:16:58.797+03:00  INFO 2400 --- [Test worker] .s.d.r.c.RepositoryConfigurationDelegate : Multiple Spring Data modules found, entering strict repository configuration mode
+2026-06-06T16:16:58.804+03:00  INFO 2400 --- [Test worker] .s.d.r.c.RepositoryConfigurationDelegate : Bootstrapping Spring Data JDBC repositories in DEFAULT mode.
+2026-06-06T16:16:58.903+03:00  INFO 2400 --- [Test worker] .RepositoryConfigurationExtensionSupport : Spring Data JDBC - Could not safely identify store assignment for repository candidate interface com.example.timetracker.repository.TaskRepository; If you want this repository to be a JDBC repository, consider annotating your entities with one of these annotations: org.springframework.data.relational.core.mapping.Table.
+2026-06-06T16:16:58.908+03:00  INFO 2400 --- [Test worker] .RepositoryConfigurationExtensionSupport : Spring Data JDBC - Could not safely identify store assignment for repository candidate interface com.example.timetracker.repository.TimeEntryRepository; If you want this repository to be a JDBC repository, consider annotating your entities with one of these annotations: org.springframework.data.relational.core.mapping.Table.
+2026-06-06T16:16:58.913+03:00  INFO 2400 --- [Test worker] .RepositoryConfigurationExtensionSupport : Spring Data JDBC - Could not safely identify store assignment for repository candidate interface com.example.timetracker.repository.UserRepository; If you want this repository to be a JDBC repository, consider annotating your entities with one of these annotations: org.springframework.data.relational.core.mapping.Table.
+2026-06-06T16:16:58.915+03:00  INFO 2400 --- [Test worker] .s.d.r.c.RepositoryConfigurationDelegate : Finished Spring Data repository scanning in 84 ms. Found 0 JDBC repository interfaces.
+2026-06-06T16:16:58.945+03:00  INFO 2400 --- [Test worker] .s.d.r.c.RepositoryConfigurationDelegate : Multiple Spring Data modules found, entering strict repository configuration mode
+2026-06-06T16:16:58.948+03:00  INFO 2400 --- [Test worker] .s.d.r.c.RepositoryConfigurationDelegate : Bootstrapping Spring Data JPA repositories in DEFAULT mode.
+2026-06-06T16:16:59.021+03:00  INFO 2400 --- [Test worker] .s.d.r.c.RepositoryConfigurationDelegate : Finished Spring Data repository scanning in 60 ms. Found 3 JPA repository interfaces.
+2026-06-06T16:16:59.945+03:00  INFO 2400 --- [Test worker] org.testcontainers.images.PullPolicy     : Image pull policy will be performed by: DefaultPullPolicy()
+2026-06-06T16:16:59.953+03:00  INFO 2400 --- [Test worker] o.t.utility.ImageNameSubstitutor         : Image name substitution will be performed by: DefaultImageNameSubstitutor (composite of 'ConfigurationFileImageNameSubstitutor' and 'PrefixingImageNameSubstitutor')
+2026-06-06T16:17:00.006+03:00  INFO 2400 --- [Test worker] org.testcontainers.DockerClientFactory   : Testcontainers version: 2.0.5
+2026-06-06T16:17:00.614+03:00  INFO 2400 --- [Test worker] o.t.d.DockerClientProviderStrategy       : Loaded org.testcontainers.dockerclient.NpipeSocketClientProviderStrategy from ~/.testcontainers.properties, will try it first
+2026-06-06T16:17:01.188+03:00  INFO 2400 --- [Test worker] o.t.d.DockerClientProviderStrategy       : Found Docker environment with local Npipe socket (npipe:////./pipe/docker_engine)
+2026-06-06T16:17:01.191+03:00  INFO 2400 --- [Test worker] org.testcontainers.DockerClientFactory   : Docker host IP address is localhost
+2026-06-06T16:17:01.214+03:00  INFO 2400 --- [Test worker] org.testcontainers.DockerClientFactory   : Connected to docker: 
+  Server Version: 28.0.4
+  API Version: 1.48
+  Operating System: Docker Desktop
+  Total Memory: 15858 MB
+  Labels: 
+    com.docker.desktop.address=npipe://\\.\pipe\docker_cli
+2026-06-06T16:17:01.355+03:00  INFO 2400 --- [Test worker] tc.testcontainers/ryuk:0.14.0            : Creating container for image: testcontainers/ryuk:0.14.0
+2026-06-06T16:17:01.732+03:00  INFO 2400 --- [Test worker] tc.testcontainers/ryuk:0.14.0            : Container testcontainers/ryuk:0.14.0 is starting: f88571eff7625d8791f844dc97d08a909748b4786fed25f995b15aae8fa54a36
+2026-06-06T16:17:02.350+03:00  INFO 2400 --- [Test worker] tc.testcontainers/ryuk:0.14.0            : Container testcontainers/ryuk:0.14.0 started in PT0.9945624S
+2026-06-06T16:17:02.360+03:00  INFO 2400 --- [Test worker] o.t.utility.RyukResourceReaper           : Ryuk started - will monitor and terminate Testcontainers containers on JVM exit
+2026-06-06T16:17:02.361+03:00  INFO 2400 --- [Test worker] org.testcontainers.DockerClientFactory   : Checking the system...
+2026-06-06T16:17:02.362+03:00  INFO 2400 --- [Test worker] org.testcontainers.DockerClientFactory   : ✔︎ Docker server version should be at least 1.6.0
+2026-06-06T16:17:02.363+03:00  INFO 2400 --- [Test worker] tc.postgres:latest                       : Creating container for image: postgres:latest
+2026-06-06T16:17:02.468+03:00  INFO 2400 --- [Test worker] tc.postgres:latest                       : Container postgres:latest is starting: 3817530c0f70396d2674c63202525f6ab3f888a12e250060dd375858e7037b2f
+2026-06-06T16:17:04.246+03:00  INFO 2400 --- [Test worker] tc.postgres:latest                       : Container postgres:latest started in PT1.8821998S
+2026-06-06T16:17:04.247+03:00  INFO 2400 --- [Test worker] tc.postgres:latest                       : Container is started (JDBC URL: jdbc:postgresql://localhost:51380/test?loggerLevel=OFF)
+2026-06-06T16:17:05.067+03:00  INFO 2400 --- [Test worker] liquibase.database                       : Set default schema name to public
+2026-06-06T16:17:07.578+03:00  INFO 2400 --- [Test worker] liquibase.changelog                      : Creating database changelog table with name: public.databasechangelog
+2026-06-06T16:17:07.625+03:00  INFO 2400 --- [Test worker] liquibase.changelog                      : Reading from public.databasechangelog
+2026-06-06T16:17:07.661+03:00  INFO 2400 --- [Test worker] liquibase.snapshot                       : Creating snapshot
+2026-06-06T16:17:07.758+03:00  INFO 2400 --- [Test worker] liquibase.lockservice                    : Successfully acquired change log lock
+2026-06-06T16:17:07.761+03:00  INFO 2400 --- [Test worker] liquibase.command                        : Using deploymentId: 0751824583
+2026-06-06T16:17:07.765+03:00  INFO 2400 --- [Test worker] liquibase.changelog                      : Reading from public.databasechangelog
+2026-06-06T16:17:07.810+03:00  INFO 2400 --- [Test worker] liquibase.ui                             : Running Changeset: db/changelog/db.changelog-1.0.sql::001-create-users::tatyana-zagaynova
+2026-06-06T16:17:07.845+03:00  INFO 2400 --- [Test worker] liquibase.changelog                      : Custom SQL executed
+2026-06-06T16:17:07.851+03:00  INFO 2400 --- [Test worker] liquibase.changelog                      : ChangeSet db/changelog/db.changelog-1.0.sql::001-create-users::tatyana-zagaynova ran successfully in 36ms
+2026-06-06T16:17:07.863+03:00  INFO 2400 --- [Test worker] liquibase.ui                             : Running Changeset: db/changelog/db.changelog-1.0.sql::002-create-task::tatyana-zagaynova
+2026-06-06T16:17:07.875+03:00  INFO 2400 --- [Test worker] liquibase.changelog                      : Custom SQL executed
+2026-06-06T16:17:07.877+03:00  INFO 2400 --- [Test worker] liquibase.changelog                      : ChangeSet db/changelog/db.changelog-1.0.sql::002-create-task::tatyana-zagaynova ran successfully in 13ms
+2026-06-06T16:17:07.883+03:00  INFO 2400 --- [Test worker] liquibase.ui                             : Running Changeset: db/changelog/db.changelog-1.0.sql::003-create-time_entry::tatyana-zagaynova
+2026-06-06T16:17:07.892+03:00  INFO 2400 --- [Test worker] liquibase.changelog                      : Custom SQL executed
+2026-06-06T16:17:07.894+03:00  INFO 2400 --- [Test worker] liquibase.changelog                      : ChangeSet db/changelog/db.changelog-1.0.sql::003-create-time_entry::tatyana-zagaynova ran successfully in 10ms
+2026-06-06T16:17:07.913+03:00  INFO 2400 --- [Test worker] liquibase.util                           : UPDATE SUMMARY
+2026-06-06T16:17:07.913+03:00  INFO 2400 --- [Test worker] liquibase.util                           : Run:                          3
+2026-06-06T16:17:07.913+03:00  INFO 2400 --- [Test worker] liquibase.util                           : Previously run:               0
+2026-06-06T16:17:07.913+03:00  INFO 2400 --- [Test worker] liquibase.util                           : Filtered out:                 0
+2026-06-06T16:17:07.913+03:00  INFO 2400 --- [Test worker] liquibase.util                           : -------------------------------
+2026-06-06T16:17:07.913+03:00  INFO 2400 --- [Test worker] liquibase.util                           : Total change sets:            3
+2026-06-06T16:17:07.915+03:00  INFO 2400 --- [Test worker] liquibase.util                           : Update summary generated
+2026-06-06T16:17:07.923+03:00  INFO 2400 --- [Test worker] liquibase.command                        : Update command completed successfully.
+2026-06-06T16:17:07.923+03:00  INFO 2400 --- [Test worker] liquibase.ui                             : Liquibase: Update has been successful. Rows affected: 0
+2026-06-06T16:17:07.930+03:00  INFO 2400 --- [Test worker] liquibase.lockservice                    : Successfully released change log lock
+2026-06-06T16:17:07.934+03:00  INFO 2400 --- [Test worker] liquibase.command                        : Command execution complete
+2026-06-06T16:17:08.051+03:00  INFO 2400 --- [Test worker] com.zaxxer.hikari.HikariDataSource       : HikariPool-1 - Starting...
+2026-06-06T16:17:08.093+03:00  INFO 2400 --- [Test worker] com.zaxxer.hikari.pool.HikariPool        : HikariPool-1 - Added connection org.postgresql.jdbc.PgConnection@189c55bf
+2026-06-06T16:17:08.096+03:00  INFO 2400 --- [Test worker] com.zaxxer.hikari.HikariDataSource       : HikariPool-1 - Start completed.
+2026-06-06T16:17:08.167+03:00  INFO 2400 --- [Test worker] org.hibernate.orm.jpa                    : HHH008540: Processing PersistenceUnitInfo [name: default]
+2026-06-06T16:17:08.294+03:00  INFO 2400 --- [Test worker] org.hibernate.orm.core                   : HHH000001: Hibernate ORM core version 7.2.12.Final
+2026-06-06T16:17:09.078+03:00  INFO 2400 --- [Test worker] o.s.o.j.p.SpringPersistenceUnitInfo      : No LoadTimeWeaver setup: ignoring JPA class transformer
+2026-06-06T16:17:09.263+03:00  INFO 2400 --- [Test worker] org.hibernate.orm.connections.pooling    : HHH10001005: Database info:
+	Database JDBC URL [jdbc:postgresql://localhost:51380/test?loggerLevel=OFF]
+	Database driver: PostgreSQL JDBC Driver
+	Database dialect: PostgreSQLDialect
+	Database version: 17.5
+	Default catalog/schema: test/public
+	Autocommit mode: undefined/unknown
+	Isolation level: READ_COMMITTED [default READ_COMMITTED]
+	JDBC fetch size: none
+	Pool: DataSourceConnectionProvider
+	Minimum pool size: undefined/unknown
+	Maximum pool size: undefined/unknown
+2026-06-06T16:17:10.942+03:00  INFO 2400 --- [Test worker] org.hibernate.orm.core                   : HHH000489: No JTA platform available (set 'hibernate.transaction.jta.platform' to enable JTA platform integration)
+2026-06-06T16:17:10.952+03:00  INFO 2400 --- [Test worker] j.LocalContainerEntityManagerFactoryBean : Initialized JPA EntityManagerFactory for persistence unit 'default'
+2026-06-06T16:17:11.077+03:00  INFO 2400 --- [Test worker] o.s.d.j.r.query.QueryEnhancerFactories   : Hibernate is in classpath; If applicable, HQL parser will be used.
+2026-06-06T16:17:11.403+03:00  INFO 2400 --- [Test worker] eAuthenticationProviderManagerConfigurer : Global AuthenticationManager configured with AuthenticationProvider bean with name authenticationProvider
+2026-06-06T16:17:11.404+03:00  WARN 2400 --- [Test worker] r$InitializeUserDetailsManagerConfigurer : Global AuthenticationManager configured with an AuthenticationProvider bean. UserDetailsService beans will not be used by Spring Security for automatically configuring username/password login. Consider removing the AuthenticationProvider bean. Alternatively, consider using the UserDetailsService in a manually instantiated DaoAuthenticationProvider. If the current configuration is intentional, to turn off this warning, increase the logging level of 'org.springframework.security.config.annotation.authentication.configuration.InitializeUserDetailsBeanManagerConfigurer' to ERROR
+2026-06-06T16:17:11.671+03:00  WARN 2400 --- [Test worker] JpaBaseConfiguration$JpaWebConfiguration : spring.jpa.open-in-view is enabled by default. Therefore, database queries may be performed during view rendering. Explicitly configure spring.jpa.open-in-view to disable this warning
+2026-06-06T16:17:13.043+03:00  INFO 2400 --- [Test worker] c.e.t.TimeTrackerApplicationTests        : Started TimeTrackerApplicationTests in 16.622 seconds (process running for 20.343)
+2026-06-06T16:17:13.052+03:00  WARN 2400 --- [Test worker] o.s.core.events.SpringDocAppInitializer  : SpringDoc /v3/api-docs endpoint is enabled by default. To disable it in production, set the property 'springdoc.api-docs.enabled=false'
+2026-06-06T16:17:13.053+03:00  WARN 2400 --- [Test worker] o.s.core.events.SpringDocAppInitializer  : SpringDoc /swagger-ui.html endpoint is enabled by default. To disable it in production, set the property 'springdoc.swagger-ui.enabled=false'
+2026-06-06T16:17:14.715+03:00  INFO 2400 --- [Test worker] c.e.timetracker.service.UserService      : Creating user Ivan
+2026-06-06T16:17:14.716+03:00  INFO 2400 --- [Test worker] c.e.timetracker.service.UserService      : User Ivan created successfully
+2026-06-06T16:17:14.731+03:00  WARN 2400 --- [Test worker] c.e.timetracker.service.UserService      : User with username Ivan not found
+2026-06-06T16:17:14.745+03:00  INFO 2400 --- [Test worker] c.e.timetracker.service.UserService      : Deleting user 1
+2026-06-06T16:17:14.746+03:00  INFO 2400 --- [Test worker] c.e.timetracker.service.UserService      : User 1 deleted
+2026-06-06T16:17:14.810+03:00  INFO 2400 --- [SpringApplicationShutdownHook] j.LocalContainerEntityManagerFactoryBean : Closing JPA EntityManagerFactory for persistence unit 'default'
+2026-06-06T16:17:15.078+03:00  INFO 2400 --- [SpringApplicationShutdownHook] com.zaxxer.hikari.HikariDataSource       : HikariPool-1 - Shutdown initiated...
+2026-06-06T16:17:15.085+03:00  INFO 2400 --- [SpringApplicationShutdownHook] com.zaxxer.hikari.HikariDataSource       : HikariPool-1 - Shutdown completed.
