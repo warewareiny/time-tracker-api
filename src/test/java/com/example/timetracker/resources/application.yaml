@@ -1,0 +1,19 @@
+spring:
+  datasource:
+    url: jdbc:postgresql://localhost:5432/postgres
+    username: postgres
+    password: postgres
+    driver-class-name: org.postgresql.Driver
+
+token:
+  signing:
+    key: bXktc3VwZXItc2VjcmV0LWtleS1mb3Itand0LXRva2VuLTEyMzQ1Njc4OTA=
+
+logging:
+  level:
+    root: INFO
+    com.example.timetracker: INFO
+  file:
+    name: logs/time-tracker.log
+  pattern:
+    console: "%d{yyyy-MM-dd HH:mm:ss} [%thread] %-5level %logger{36} - %msg%n"
