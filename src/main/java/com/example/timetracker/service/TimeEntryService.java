@@ -17,6 +17,7 @@ import org.springframework.web.bind.annotation.ResponseStatus;
 
 import java.time.Duration;
 import java.time.Instant;
+import java.util.List;
 
 @Slf4j
 @Service
@@ -89,6 +90,11 @@ public class TimeEntryService {
         log.info("Timer {} stopped. Duration {} minutes", savedEntry.getId(), savedEntry.getDurationMinutes());
 
         return savedEntry;
+    }
+
+    public List<TimeEntry> findAll() {
+        User currentUser = userService.getCurrentUser();
+        return timeEntryRepository.findByUser(currentUser);
     }
 
     public Long getActiveTimerDuration() {

@@ -1,6 +1,7 @@
 package com.example.timetracker.exception;
 
 import com.example.timetracker.dto.ErrorResponse;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.ExceptionHandler;
@@ -9,7 +10,15 @@ import org.springframework.web.bind.annotation.RestControllerAdvice;
 import java.time.Instant;
 
 @RestControllerAdvice
+@Slf4j
 public class GlobalExceptionHandler {
+
+    @ExceptionHandler(Exception.class)
+    public ResponseEntity<ErrorResponse> handleException(Exception ex) {
+        log.error("Unexpected error", ex);
+
+        return buildResponse(HttpStatus.INTERNAL_SERVER_ERROR, "Internal server error");
+    }
 
     @ExceptionHandler(UserNotFoundException.class)
     public ResponseEntity<ErrorResponse> handleUserNotFound(UserNotFoundException ex) {
@@ -34,14 +43,6 @@ public class GlobalExceptionHandler {
     @ExceptionHandler(AccessDeniedException.class)
     public ResponseEntity<ErrorResponse> handleAccessDenied(AccessDeniedException ex) {
         return buildResponse(HttpStatus.FORBIDDEN, ex.getMessage());
-    }
-
-    @ExceptionHandler(Exception.class)
-    public ResponseEntity<ErrorResponse> handleException(Exception ex) {
-        return buildResponse(
-                HttpStatus.INTERNAL_SERVER_ERROR,
-                "Internal server error"
-        );
     }
 
     @ExceptionHandler(TaskAlreadyCompletedException.class)

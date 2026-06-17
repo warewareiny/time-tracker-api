@@ -2,7 +2,7 @@
 
 --changeset tatyana-zagaynova:001-add-user_id-to-time_entry
 ALTER TABLE time_entry
-ADD COLUMN user_id INT REFERENCES users(id);
+ADD COLUMN IF NOT EXISTS user_id INT REFERENCES users(id);
 
 --changeset tatyana-zagaynova:002-replace-duration-data-type
 ALTER TABLE time_entry
