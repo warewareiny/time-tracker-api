@@ -13,11 +13,16 @@ COPY src ./src
 
 RUN ./gradlew bootJar --no-daemon -x test
 
+
 FROM eclipse-temurin:17-jre-alpine
+
+RUN addgroup -S appgroup && adduser -S appuser -G appgroup
 
 WORKDIR /app
 
-COPY --from=build /app/build/libs/*.jar app.jar
+COPY --from=build /app/build/libs/time-tracker-0.0.1-SNAPSHOT.jar app.jar
+
+USER appuser
 
 EXPOSE 8080
 
