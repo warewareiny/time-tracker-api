@@ -1,12 +1,12 @@
 package com.example.timetracker.unit;
 
-import com.example.timetracker.entity.Role;
-import com.example.timetracker.entity.User;
-import com.example.timetracker.exception.EmailAlreadyExistsException;
-import com.example.timetracker.exception.UserAlreadyExistsException;
-import com.example.timetracker.exception.UserNotFoundException;
-import com.example.timetracker.repository.UserRepository;
-import com.example.timetracker.service.UserService;
+import com.example.timetracker.auth.entity.Role;
+import com.example.timetracker.auth.entity.User;
+import com.example.timetracker.auth.exception.EmailAlreadyExistsException;
+import com.example.timetracker.auth.exception.UserAlreadyExistsException;
+import com.example.timetracker.auth.exception.UserNotFoundException;
+import com.example.timetracker.auth.repository.UserRepository;
+import com.example.timetracker.auth.service.UserService;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
 import org.mockito.InjectMocks;

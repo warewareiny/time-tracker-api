@@ -1,13 +1,17 @@
 package com.example.timetracker.unit;
 
 import com.example.timetracker.entity.*;
-import com.example.timetracker.exception.ActiveTimerAlreadyExistsException;
-import com.example.timetracker.exception.ActiveTimerNotFoundException;
-import com.example.timetracker.exception.TaskAlreadyCompletedException;
-import com.example.timetracker.repository.TimeEntryRepository;
-import com.example.timetracker.service.TaskService;
-import com.example.timetracker.service.TimeEntryService;
-import com.example.timetracker.service.UserService;
+import com.example.timetracker.timeentry.exception.ActiveTimerAlreadyExistsException;
+import com.example.timetracker.timeentry.exception.ActiveTimerNotFoundException;
+import com.example.timetracker.task.exception.TaskAlreadyCompletedException;
+import com.example.timetracker.timeentry.entity.TimeEntry;
+import com.example.timetracker.timeentry.repository.TimeEntryRepository;
+import com.example.timetracker.task.entity.Status;
+import com.example.timetracker.task.entity.Task;
+import com.example.timetracker.task.service.TaskService;
+import com.example.timetracker.timeentry.service.TimeEntryService;
+import com.example.timetracker.auth.entity.User;
+import com.example.timetracker.auth.service.UserService;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
 import org.mockito.InjectMocks;

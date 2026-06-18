@@ -1,9 +1,9 @@
 package com.example.timetracker.integration.controller;
 
 import com.example.timetracker.TestcontainersConfiguration;
-import com.example.timetracker.entity.Role;
-import com.example.timetracker.entity.User;
-import com.example.timetracker.repository.UserRepository;
+import com.example.timetracker.auth.entity.Role;
+import com.example.timetracker.auth.entity.User;
+import com.example.timetracker.auth.repository.UserRepository;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;

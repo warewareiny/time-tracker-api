@@ -1,13 +1,13 @@
 package com.example.timetracker.unit;
 
-import com.example.timetracker.dto.CreateAndUpdateTaskRequest;
-import com.example.timetracker.entity.Status;
-import com.example.timetracker.entity.Task;
-import com.example.timetracker.entity.User;
-import com.example.timetracker.exception.TaskNotFoundException;
-import com.example.timetracker.repository.TaskRepository;
-import com.example.timetracker.service.TaskService;
-import com.example.timetracker.service.UserService;
+import com.example.timetracker.task.dto.CreateAndUpdateTaskRequest;
+import com.example.timetracker.task.entity.Status;
+import com.example.timetracker.task.entity.Task;
+import com.example.timetracker.auth.entity.User;
+import com.example.timetracker.task.exception.TaskNotFoundException;
+import com.example.timetracker.task.repository.TaskRepository;
+import com.example.timetracker.task.service.TaskService;
+import com.example.timetracker.auth.service.UserService;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
