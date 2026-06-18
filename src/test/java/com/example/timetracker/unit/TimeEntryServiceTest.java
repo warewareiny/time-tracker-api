@@ -1,6 +1,5 @@
 package com.example.timetracker.unit;
 
-import com.example.timetracker.entity.*;
 import com.example.timetracker.timeentry.exception.ActiveTimerAlreadyExistsException;
 import com.example.timetracker.timeentry.exception.ActiveTimerNotFoundException;
 import com.example.timetracker.task.exception.TaskAlreadyCompletedException;

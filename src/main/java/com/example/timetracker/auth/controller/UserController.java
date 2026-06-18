@@ -2,7 +2,7 @@ package com.example.timetracker.auth.controller;
 
 import com.example.timetracker.auth.dto.UpdateUserRequest;
 import com.example.timetracker.auth.dto.UserResponse;
-import com.example.timetracker.auth.entity.User;
+import com.example.timetracker.auth.mapper.UserMapper;
 import com.example.timetracker.auth.service.UserService;
 import io.swagger.v3.oas.annotations.security.SecurityRequirement;
 import jakarta.validation.Valid;
@@ -22,23 +22,27 @@ import static java.util.stream.Collectors.toList;
 public class UserController {
 
     private final UserService userService;
+    private final UserMapper userMapper;
 
+    @ResponseStatus(HttpStatus.OK)
     @GetMapping("/me")
     public UserResponse getCurrentUser() {
-        return toResponse(userService.getCurrentUser());
+        return userMapper.toUserResponse(userService.getCurrentUser());
     }
 
+    @ResponseStatus(HttpStatus.OK)
     @GetMapping("/{id}")
     @PreAuthorize("hasRole('ADMIN')")
     public UserResponse getById(@PathVariable Integer id) {
-        return toResponse(userService.findById(id));
+        return userMapper.toUserResponse(userService.findById(id));
     }
 
+    @ResponseStatus(HttpStatus.OK)
     @GetMapping
     @PreAuthorize("hasRole('ADMIN')")
     public List<UserResponse> getUsers() {
         return userService.findAll().stream()
-                .map(this::toResponse)
+                .map(userMapper::toUserResponse)
                 .collect(toList());
     }
 
@@ -55,16 +59,9 @@ public class UserController {
         userService.deleteById(id);
     }
 
+    @ResponseStatus(HttpStatus.OK)
     @PutMapping("/me")
     public UserResponse updateCurrentUser(@Valid @RequestBody UpdateUserRequest request) {
-        return toResponse(userService.updateCurrentUser(request));
-    }
-
-    private UserResponse toResponse(User user) {
-        return UserResponse.builder()
-                .id(user.getId())
-                .email(user.getEmail())
-                .username(user.getUsername())
-                .build();
+        return userMapper.toUserResponse(userService.updateCurrentUser(request));
     }
 }
