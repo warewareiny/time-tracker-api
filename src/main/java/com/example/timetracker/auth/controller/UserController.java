@@ -17,7 +17,7 @@ import static java.util.stream.Collectors.toList;
 
 @SecurityRequirement(name = "bearerAuth")
 @RestController
-@RequestMapping("/users")
+@RequestMapping("/api/v1//users")
 @RequiredArgsConstructor
 public class UserController {
 

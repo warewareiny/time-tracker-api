@@ -18,7 +18,7 @@ import java.util.List;
 
 @SecurityRequirement(name = "bearerAuth")
 @RestController
-@RequestMapping("/tasks")
+@RequestMapping("/api/v1//tasks")
 @RequiredArgsConstructor
 public class TaskController {
 

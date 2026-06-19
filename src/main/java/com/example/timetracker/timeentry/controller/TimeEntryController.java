@@ -16,7 +16,7 @@ import java.util.stream.Collectors;
 
 @SecurityRequirement(name = "bearerAuth")
 @RestController
-@RequestMapping("/time-entries")
+@RequestMapping("/api/v1//time-entries")
 @RequiredArgsConstructor
 public class TimeEntryController {
 
