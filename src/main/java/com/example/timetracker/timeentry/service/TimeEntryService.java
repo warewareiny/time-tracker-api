@@ -8,10 +8,13 @@ import com.example.timetracker.task.entity.Task;
 import com.example.timetracker.task.exception.TaskAlreadyCompletedException;
 import com.example.timetracker.task.mapper.TaskMapper;
 import com.example.timetracker.task.service.TaskService;
+import com.example.timetracker.timeentry.dto.ActiveTimerResponse;
+import com.example.timetracker.timeentry.dto.TimeEntryResponse;
 import com.example.timetracker.timeentry.dto.TimeStatisticsResponse;
 import com.example.timetracker.timeentry.entity.TimeEntry;
 import com.example.timetracker.timeentry.exception.ActiveTimerAlreadyExistsException;
 import com.example.timetracker.timeentry.exception.ActiveTimerNotFoundException;
+import com.example.timetracker.timeentry.mapper.TimeEntryMapper;
 import com.example.timetracker.timeentry.repository.TimeEntryRepository;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
@@ -30,6 +33,7 @@ public class TimeEntryService {
     private final TimeEntryRepository timeEntryRepository;
     private final TaskService taskService;
     private final TaskMapper taskMapper;
+    private final TimeEntryMapper timeEntryMapper;
     private final UserService userService;
 
     public TimeStatisticsResponse getStatistics() {
@@ -37,105 +41,90 @@ public class TimeEntryService {
         List<Task> tasks = currentUser.getTasks();
 
         long totalMinutes = tasks.stream()
-                .flatMap(task -> task.getTimeEntries().stream())
+                .flatMap(t -> t.getTimeEntries().stream())
                 .mapToLong(TimeEntry::getDurationMinutes)
                 .sum();
 
         long completedTasks = tasks.stream()
-                .filter(task -> task.getStatus() == Status.DONE)
+                .filter(t -> t.getStatus() == Status.DONE)
                 .count();
 
         return new TimeStatisticsResponse(totalMinutes, completedTasks);
     }
 
-    @Transactional
-    public TimeEntry startTimer(Integer taskId) {
-        User currentUser = userService.getCurrentUser();
+    public List<TimeEntryResponse> findAll() {
+        User user = userService.getCurrentUser();
 
-        log.info("Starting timer for task {} by user {}", taskId, currentUser.getId());
+        return timeEntryRepository.findByUser(user).stream()
+                .map(timeEntryMapper::toTimeEntryResponse)
+                .toList();
+    }
+
+    @Transactional
+    public ActiveTimerResponse startTimer(Integer taskId) {
+        User user = userService.getCurrentUser();
 
         TaskResponse task = taskService.findById(taskId);
 
         if (task.getStatus() == Status.DONE) {
-            log.warn("User {} tried to start completed task {}", currentUser.getId(), taskId);
             throw new TaskAlreadyCompletedException(taskId);
         }
 
-        if (timeEntryRepository.existsByUserAndEndTimeIsNull(currentUser)) {
-            log.warn("User {} already has active timer", currentUser.getId());
+        if (timeEntryRepository.existsByUserAndEndTimeIsNull(user)) {
             throw new ActiveTimerAlreadyExistsException();
         }
 
         TimeEntry entry = TimeEntry.builder()
-                .user(currentUser)
+                .user(user)
                 .task(taskMapper.toTask(task))
                 .startTime(Instant.now())
                 .build();
 
-        TimeEntry savedEntry = timeEntryRepository.save(entry);
-
-        log.info("Timer {} started for task {}", savedEntry.getId(), taskId);
-
-        return savedEntry;
+        return timeEntryMapper.toActiveTimerResponse(
+                timeEntryRepository.save(entry)
+        );
     }
 
     @Transactional
-    public TimeEntry stopTimer() {
-        User currentUser = userService.getCurrentUser();
+    public ActiveTimerResponse stopTimer() {
+        User user = userService.getCurrentUser();
 
-        log.info("Stopping active timer for user {}", currentUser.getId());
-
-        TimeEntry entry = getActiveEntry(currentUser);
+        TimeEntry entry = getActiveEntry(user);
 
         entry.setEndTime(Instant.now());
         entry.setDurationMinutes(
-                Duration.between(
-                        entry.getStartTime(),
-                        entry.getEndTime()
-                ).toMinutes()
+                Duration.between(entry.getStartTime(), entry.getEndTime()).toMinutes()
         );
 
         Task task = entry.getTask();
 
         if (task.getStatus() != Status.DONE) {
             task.setStatus(Status.DONE);
-
-            log.info("Task {} automatically marked as DONE", task.getId());
         }
 
-        TimeEntry savedEntry = timeEntryRepository.save(entry);
-
-        log.info("Timer {} stopped. Duration {} minutes", savedEntry.getId(), savedEntry.getDurationMinutes());
-
-        return savedEntry;
+        return timeEntryMapper.toActiveTimerResponse(
+                timeEntryRepository.save(entry)
+        );
     }
 
-    public List<TimeEntry> findAll() {
-        User currentUser = userService.getCurrentUser();
-        return timeEntryRepository.findByUser(currentUser);
+    public ActiveTimerResponse getActiveTimer() {
+        User user = userService.getCurrentUser();
+
+        return timeEntryMapper.toActiveTimerResponse(
+                getActiveEntry(user)
+        );
     }
 
     public Long getActiveTimerDuration() {
-        User currentUser = userService.getCurrentUser();
+        User user = userService.getCurrentUser();
 
-        TimeEntry entry = getActiveEntry(currentUser);
+        TimeEntry entry = getActiveEntry(user);
 
-        return Duration.between(
-                entry.getStartTime(),
-                Instant.now()
-        ).toMinutes();
-    }
-
-    public TimeEntry getActiveTimer() {
-        User currentUser = userService.getCurrentUser();
-        return getActiveEntry(currentUser);
+        return Duration.between(entry.getStartTime(), Instant.now()).toMinutes();
     }
 
     private TimeEntry getActiveEntry(User user) {
         return timeEntryRepository.findByUserAndEndTimeIsNull(user)
-                .orElseThrow(() -> {
-                    log.warn("Active timer not found for user {}", user.getId());
-                    return new ActiveTimerNotFoundException();
-                });
+                .orElseThrow(ActiveTimerNotFoundException::new);
     }
 }

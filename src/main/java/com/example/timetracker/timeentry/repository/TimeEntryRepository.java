@@ -12,6 +12,9 @@ import java.util.Optional;
 public interface TimeEntryRepository extends JpaRepository<TimeEntry, Integer> {
 
     List<TimeEntry> findByUser(User user);
+
     boolean existsByUserAndEndTimeIsNull(User user);
+
     Optional<TimeEntry> findByUserAndEndTimeIsNull(User user);
+
 }

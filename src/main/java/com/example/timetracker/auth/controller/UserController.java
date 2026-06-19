@@ -2,18 +2,14 @@ package com.example.timetracker.auth.controller;
 
 import com.example.timetracker.auth.dto.UpdateUserRequest;
 import com.example.timetracker.auth.dto.UserResponse;
-import com.example.timetracker.auth.mapper.UserMapper;
 import com.example.timetracker.auth.service.UserService;
 import io.swagger.v3.oas.annotations.security.SecurityRequirement;
 import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
-import org.springframework.http.HttpStatus;
 import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
-
-import static java.util.stream.Collectors.toList;
 
 @SecurityRequirement(name = "bearerAuth")
 @RestController
