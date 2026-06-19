@@ -1,11 +1,12 @@
 package com.example.timetracker.task.service;
 
-import com.example.timetracker.task.dto.CreateAndUpdateTaskRequest;
-import com.example.timetracker.task.entity.Task;
 import com.example.timetracker.auth.entity.User;
+import com.example.timetracker.auth.service.UserService;
+import com.example.timetracker.task.dto.CreateAndUpdateTaskRequest;
+import com.example.timetracker.task.entity.Status;
+import com.example.timetracker.task.entity.Task;
 import com.example.timetracker.task.exception.TaskNotFoundException;
 import com.example.timetracker.task.repository.TaskRepository;
-import com.example.timetracker.auth.service.UserService;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;
@@ -20,6 +21,11 @@ public class TaskService {
 
     private final TaskRepository taskRepository;
     private final UserService userService;
+
+    public List<Task> findAllByStatus(Status status) {
+        User currentUser = userService.getCurrentUser();
+        return taskRepository.findByUserAndStatus(currentUser, status);
+    }
 
     public Task findById(Integer id) {
         User currentUser = userService.getCurrentUser();

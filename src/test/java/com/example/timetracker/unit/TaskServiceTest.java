@@ -58,15 +58,35 @@ class TaskServiceTest {
     }
 
     @Test
+    void shouldReturnTasksByStatus() {
+        Task testTask2 = Task.builder()
+                .title("task2")
+                .description("description2")
+                .status(Status.TODO)
+                .user(USER)
+                .build();
+
+        when(userService.getCurrentUser()).thenReturn(USER);
+        when(taskRepository.findByUserAndStatus(USER, Status.TODO)).thenReturn(List.of(testTask, testTask2));
+        when(taskRepository.findByUserAndStatus(USER, Status.DONE)).thenReturn(List.of());
+
+        List<Task> todoTasks = taskService.findAllByStatus(Status.TODO);
+        List<Task> doneTasks = taskService.findAllByStatus(Status.DONE);
+
+        assertThat(todoTasks).hasSize(2);
+        assertThat(doneTasks).hasSize(0);
+
+        verify(taskRepository).findByUserAndStatus(USER, Status.TODO);
+        verify(taskRepository).findByUserAndStatus(USER, Status.DONE);
+    }
+
+    @Test
     void shouldReturnAllTasks() {
-        when(taskRepository.findByUser(USER))
-                .thenReturn(List.of(testTask));
+        when(taskRepository.findByUser(USER)).thenReturn(List.of(testTask));
 
         List<Task> result = taskService.findAll();
 
-        assertThat(result)
-                .hasSize(1)
-                .containsExactly(testTask);
+        assertThat(result).hasSize(1).containsExactly(testTask);
     }
 
     @Test
