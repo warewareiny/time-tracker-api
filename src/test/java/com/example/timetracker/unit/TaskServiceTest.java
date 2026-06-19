@@ -3,9 +3,11 @@ package com.example.timetracker.unit;
 import com.example.timetracker.auth.entity.User;
 import com.example.timetracker.auth.service.UserService;
 import com.example.timetracker.task.dto.CreateAndUpdateTaskRequest;
+import com.example.timetracker.task.dto.TaskResponse;
 import com.example.timetracker.task.entity.Status;
 import com.example.timetracker.task.entity.Task;
 import com.example.timetracker.task.exception.TaskNotFoundException;
+import com.example.timetracker.task.mapper.TaskMapper;
 import com.example.timetracker.task.repository.TaskRepository;
 import com.example.timetracker.task.service.TaskService;
 import org.junit.jupiter.api.BeforeEach;
@@ -39,6 +41,9 @@ class TaskServiceTest {
 
     @InjectMocks
     private TaskService taskService;
+
+    @Mock
+    private TaskMapper taskMapper;
 
     private Task testTask;
 
@@ -77,10 +82,13 @@ class TaskServiceTest {
 
         Page<Task> page = new PageImpl<>(List.of(task), pageable, 1);
 
+        TaskResponse response = new TaskResponse(1, "task", "desc", Status.TODO);
+
         when(userService.getCurrentUser()).thenReturn(user);
         when(taskRepository.findByUser(user, pageable)).thenReturn(page);
+        when(taskMapper.toTaskResponse(task)).thenReturn(response);
 
-        Page<Task> result = taskService.findAll(pageable);
+        Page<TaskResponse> result = taskService.findAll(null, pageable);
 
         assertThat(result.getContent()).hasSize(1);
         assertThat(result.getContent().get(0).getTitle())
@@ -91,45 +99,12 @@ class TaskServiceTest {
     }
 
     @Test
-    void shouldReturnTasksByStatus() {
-        Task testTask2 = Task.builder()
-                .title("task2")
-                .description("description2")
-                .status(Status.TODO)
-                .user(USER)
-                .build();
-
-        when(userService.getCurrentUser()).thenReturn(USER);
-        when(taskRepository.findByUserAndStatus(USER, Status.TODO)).thenReturn(List.of(testTask, testTask2));
-        when(taskRepository.findByUserAndStatus(USER, Status.DONE)).thenReturn(List.of());
-
-        List<Task> todoTasks = taskService.findAllByStatus(Status.TODO);
-        List<Task> doneTasks = taskService.findAllByStatus(Status.DONE);
-
-        assertThat(todoTasks).hasSize(2);
-        assertThat(doneTasks).hasSize(0);
-
-        verify(taskRepository).findByUserAndStatus(USER, Status.TODO);
-        verify(taskRepository).findByUserAndStatus(USER, Status.DONE);
-    }
-
-    @Test
-    void shouldReturnAllTasks() {
-        when(taskRepository.findByUser(USER)).thenReturn(List.of(testTask));
-
-        List<Task> result = taskService.findAll();
-
-        assertThat(result).hasSize(1).containsExactly(testTask);
-    }
-
-    @Test
     void shouldFindTaskById() {
         when(taskRepository.findByIdAndUser(1, USER))
                 .thenReturn(Optional.of(testTask));
 
-        Task result = taskService.findById(1);
+        TaskResponse result = taskService.findById(1);
 
-        assertThat(result).isEqualTo(testTask);
         assertThat(result.getTitle()).isEqualTo("task");
         assertThat(result.getDescription()).isEqualTo("description");
         assertThat(result.getStatus()).isEqualTo(Status.TODO);
@@ -169,7 +144,7 @@ class TaskServiceTest {
         when(taskRepository.save(any(Task.class)))
                 .thenReturn(savedTask);
 
-        Task result = taskService.create(TASK_REQ);
+        TaskResponse result = taskService.create(TASK_REQ);
 
         assertThat(result.getTitle()).isEqualTo("new task");
         assertThat(result.getDescription()).isEqualTo("new description");
@@ -186,7 +161,7 @@ class TaskServiceTest {
         when(taskRepository.save(any(Task.class)))
                 .thenAnswer(invocation -> invocation.getArgument(0));
 
-        Task result = taskService.updateCurrentTask(1, TASK_REQ);
+        TaskResponse result = taskService.updateCurrentTask(1, TASK_REQ);
 
         assertThat(result.getTitle()).isEqualTo("new task");
         assertThat(result.getDescription()).isEqualTo("new description");

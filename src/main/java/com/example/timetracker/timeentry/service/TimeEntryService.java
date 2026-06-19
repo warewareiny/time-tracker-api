@@ -2,9 +2,11 @@ package com.example.timetracker.timeentry.service;
 
 import com.example.timetracker.auth.entity.User;
 import com.example.timetracker.auth.service.UserService;
+import com.example.timetracker.task.dto.TaskResponse;
 import com.example.timetracker.task.entity.Status;
 import com.example.timetracker.task.entity.Task;
 import com.example.timetracker.task.exception.TaskAlreadyCompletedException;
+import com.example.timetracker.task.mapper.TaskMapper;
 import com.example.timetracker.task.service.TaskService;
 import com.example.timetracker.timeentry.dto.TimeStatisticsResponse;
 import com.example.timetracker.timeentry.entity.TimeEntry;
@@ -27,6 +29,7 @@ public class TimeEntryService {
 
     private final TimeEntryRepository timeEntryRepository;
     private final TaskService taskService;
+    private final TaskMapper taskMapper;
     private final UserService userService;
 
     public TimeStatisticsResponse getStatistics() {
@@ -51,7 +54,7 @@ public class TimeEntryService {
 
         log.info("Starting timer for task {} by user {}", taskId, currentUser.getId());
 
-        Task task = taskService.findById(taskId);
+        TaskResponse task = taskService.findById(taskId);
 
         if (task.getStatus() == Status.DONE) {
             log.warn("User {} tried to start completed task {}", currentUser.getId(), taskId);
@@ -65,7 +68,7 @@ public class TimeEntryService {
 
         TimeEntry entry = TimeEntry.builder()
                 .user(currentUser)
-                .task(task)
+                .task(taskMapper.toTask(task))
                 .startTime(Instant.now())
                 .build();
 

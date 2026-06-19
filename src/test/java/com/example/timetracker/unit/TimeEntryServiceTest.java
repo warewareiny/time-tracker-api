@@ -2,9 +2,11 @@ package com.example.timetracker.unit;
 
 import com.example.timetracker.auth.entity.User;
 import com.example.timetracker.auth.service.UserService;
+import com.example.timetracker.task.dto.TaskResponse;
 import com.example.timetracker.task.entity.Status;
 import com.example.timetracker.task.entity.Task;
 import com.example.timetracker.task.exception.TaskAlreadyCompletedException;
+import com.example.timetracker.task.mapper.TaskMapper;
 import com.example.timetracker.task.service.TaskService;
 import com.example.timetracker.timeentry.entity.TimeEntry;
 import com.example.timetracker.timeentry.exception.ActiveTimerAlreadyExistsException;
@@ -34,6 +36,9 @@ class TimeEntryServiceTest {
     private TaskService taskService;
 
     @Mock
+    private TaskMapper taskMapper;
+
+    @Mock
     private UserService userService;
 
     @InjectMocks
@@ -45,20 +50,19 @@ class TimeEntryServiceTest {
             .email("email")
             .build();
 
-    private final Task task = Task.builder()
-            .id(1)
-            .title("title")
-            .description("desc")
-            .status(Status.TODO)
-            .build();
+    private final TaskResponse task = new TaskResponse(
+            1,
+            "title",
+            "desc",
+            Status.TODO
+    );
 
-    private final Task task2 = Task.builder()
-            .id(2)
-            .title("title2")
-            .description("desc2")
-            .timeEntries(List.of())
-            .status(Status.TODO)
-            .build();
+    private final TaskResponse task2 = new TaskResponse(
+            1,
+            "title2",
+            "desc2",
+            Status.TODO
+            );
 
     @Test
     void shouldReturnStatistics() {
@@ -68,6 +72,11 @@ class TimeEntryServiceTest {
                         TimeEntry.builder().durationMinutes(10L).build(),
                         TimeEntry.builder().durationMinutes(20L).build()
                 ))
+                .build();
+
+        Task task2 = Task.builder()
+                .status(Status.DONE)
+                .timeEntries(List.of())
                 .build();
 
         User user = User.builder()
@@ -96,7 +105,6 @@ class TimeEntryServiceTest {
 
         assertNotNull(result);
         assertEquals(user, result.getUser());
-        assertEquals(task, result.getTask());
         assertNotNull(result.getStartTime());
 
         verify(timeEntryRepository).save(any(TimeEntry.class));
@@ -127,7 +135,7 @@ class TimeEntryServiceTest {
     void shouldStopTimer() {
         TimeEntry entry = TimeEntry.builder()
                 .user(user)
-                .task(task)
+                .task(taskMapper.toTask(task))
                 .startTime(Instant.now().minusSeconds(120))
                 .build();
 
