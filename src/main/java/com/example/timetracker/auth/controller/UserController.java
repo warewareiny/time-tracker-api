@@ -17,51 +17,42 @@ import static java.util.stream.Collectors.toList;
 
 @SecurityRequirement(name = "bearerAuth")
 @RestController
-@RequestMapping("/api/v1//users")
+@RequestMapping("/api/v1/users")
 @RequiredArgsConstructor
 public class UserController {
 
     private final UserService userService;
-    private final UserMapper userMapper;
 
-    @ResponseStatus(HttpStatus.OK)
     @GetMapping("/me")
     public UserResponse getCurrentUser() {
-        return userMapper.toUserResponse(userService.getCurrentUser());
+        return userService.getCurrentUserResponse();
     }
 
-    @ResponseStatus(HttpStatus.OK)
     @GetMapping("/{id}")
     @PreAuthorize("hasRole('ADMIN')")
     public UserResponse getById(@PathVariable Integer id) {
-        return userMapper.toUserResponse(userService.findById(id));
+        return userService.findById(id);
     }
 
-    @ResponseStatus(HttpStatus.OK)
     @GetMapping
     @PreAuthorize("hasRole('ADMIN')")
     public List<UserResponse> getUsers() {
-        return userService.findAll().stream()
-                .map(userMapper::toUserResponse)
-                .collect(toList());
+        return userService.findAll();
     }
 
-    @ResponseStatus(HttpStatus.NO_CONTENT)
     @DeleteMapping("/me")
     public void deleteCurrentUser() {
-        userService.deleteById(userService.getCurrentUser().getId());
+        userService.deleteCurrentUser();
     }
 
-    @ResponseStatus(HttpStatus.NO_CONTENT)
     @DeleteMapping("/{id}")
     @PreAuthorize("hasRole('ADMIN')")
     public void deleteById(@PathVariable Integer id) {
         userService.deleteById(id);
     }
 
-    @ResponseStatus(HttpStatus.OK)
     @PutMapping("/me")
     public UserResponse updateCurrentUser(@Valid @RequestBody UpdateUserRequest request) {
-        return userMapper.toUserResponse(userService.updateCurrentUser(request));
+        return userService.updateCurrentUser(request);
     }
 }

@@ -1,5 +1,6 @@
 package com.example.timetracker.unit;
 
+import com.example.timetracker.auth.dto.UserResponse;
 import com.example.timetracker.auth.entity.Role;
 import com.example.timetracker.auth.entity.User;
 import com.example.timetracker.auth.exception.EmailAlreadyExistsException;
@@ -49,9 +50,6 @@ public class UserServiceTest {
 
         assertThat(result.getUsername()).isEqualTo("Ivan");
         assertThat(result.getEmail()).isEqualTo("email@mail.ru");
-        assertThat(result.getPasswordHash()).isEqualTo("test-pass");
-        assertThat(result.getRole()).isEqualTo(Role.USER);
-        assertThat(result.getTasks()).isEqualTo(null);
     }
 
     @Test
@@ -135,10 +133,9 @@ public class UserServiceTest {
     void shouldFindAll() {
         when(userRepository.findAll()).thenReturn(List.of(TEST_USER_IVAN));
 
-        List<User> result = userService.findAll();
+        List<UserResponse> result = userService.findAll();
 
         assertThat(result).hasSize(1);
-        assertThat(result).containsExactly(TEST_USER_IVAN);
 
         verify(userRepository).findAll();
     }

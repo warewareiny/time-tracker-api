@@ -9,12 +9,13 @@ import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
+import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
-@Slf4j
 @Service
 @RequiredArgsConstructor
+@Slf4j
 public class AuthenticationService {
 
     private final UserService userService;
@@ -23,39 +24,37 @@ public class AuthenticationService {
     private final AuthenticationManager authenticationManager;
 
     public JwtAuthenticationResponse signUp(SignUpRequest request) {
+
         log.info("Registering user {}", request.getUsername());
 
-        var user = User.builder()
+        User user = User.builder()
                 .username(request.getUsername())
                 .email(request.getEmail())
                 .passwordHash(passwordEncoder.encode(request.getPassword()))
                 .role(Role.USER)
                 .build();
 
-        userService.create(user);
+        User savedUser = userService.save(user);
 
-        var jwt = jwtService.generateToken(user);
-
-        log.info("User {} registered successfully", request.getUsername());
+        var jwt = jwtService.generateToken(savedUser);
 
         return new JwtAuthenticationResponse(jwt);
     }
 
     public JwtAuthenticationResponse signIn(SignInRequest request) {
-        log.info("Authentication attempt for user {}", request.getUsername());
 
-        authenticationManager.authenticate(new UsernamePasswordAuthenticationToken(
-                request.getUsername(),
-                request.getPassword()
-        ));
+        log.info("Authentication attempt {}", request.getUsername());
 
-        var user = userService
-                .userDetailsService()
-                .loadUserByUsername(request.getUsername());
+        authenticationManager.authenticate(
+                new UsernamePasswordAuthenticationToken(
+                        request.getUsername(),
+                        request.getPassword()
+                )
+        );
 
-        var jwt = jwtService.generateToken(user);
+        UserDetails userDetails = userService.loadUserByUsername(request.getUsername());
 
-        log.info("User {} authenticated successfully", request.getUsername());
+        var jwt = jwtService.generateToken(userDetails);
 
         return new JwtAuthenticationResponse(jwt);
     }

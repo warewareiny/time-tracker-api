@@ -1,10 +1,12 @@
 package com.example.timetracker.auth.service;
 
 import com.example.timetracker.auth.dto.UpdateUserRequest;
+import com.example.timetracker.auth.dto.UserResponse;
 import com.example.timetracker.auth.entity.User;
 import com.example.timetracker.auth.exception.EmailAlreadyExistsException;
 import com.example.timetracker.auth.exception.UserAlreadyExistsException;
 import com.example.timetracker.auth.exception.UserNotFoundException;
+import com.example.timetracker.auth.mapper.UserMapper;
 import com.example.timetracker.auth.repository.UserRepository;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
@@ -22,85 +24,89 @@ import java.util.List;
 public class UserService implements UserDetailsService {
 
     private final UserRepository userRepository;
+    private final UserMapper userMapper;
 
-    public User save(User user) {
-        log.debug("Saving user {}", user.getUsername());
-        return userRepository.save(user);
-    }
-
-    public User create(User user) {
+    public UserResponse create(User user) {
         log.info("Creating user {}", user.getUsername());
 
         if (userRepository.existsByUsername(user.getUsername())) {
-            log.warn("User with username {} already exists", user.getUsername());
             throw new UserAlreadyExistsException(user.getUsername());
         }
 
         if (userRepository.existsByEmail(user.getEmail())) {
-            log.warn("User with email {} already exists", user.getEmail());
             throw new EmailAlreadyExistsException(user.getEmail());
         }
 
-        log.info("User {} created successfully", user.getUsername());
-
-        return save(user);
+        return userMapper.toUserResponse(userRepository.save(user));
     }
 
-    public User getByUsername(String username) {
-        return userRepository.findByUsername(username)
-                .orElseThrow(() -> {
-                    log.warn("User with username {} not found", username);
-                    return new UsernameNotFoundException("User not found");
-                });
+    public User save(User user) {
+        return userRepository.save(user);
     }
 
-    @Override
-    public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {
-        return getByUsername(username);
+    public UserResponse getByUsername(String username) {
+        return userMapper.toUserResponse(
+                userRepository.findByUsername(username)
+                        .orElseThrow(() -> new UsernameNotFoundException(username))
+        );
     }
 
-    public UserDetailsService userDetailsService() {
-        return this::getByUsername;
+    public UserResponse findById(Integer id) {
+        return userMapper.toUserResponse(
+                userRepository.findById(id)
+                        .orElseThrow(() -> new UserNotFoundException(id))
+        );
+    }
+
+    public List<UserResponse> findAll() {
+        return userMapper.toUserResponses(userRepository.findAll());
     }
 
     public User getCurrentUser() {
-        var username = SecurityContextHolder.getContext().getAuthentication().getName();
+        String username = SecurityContextHolder.getContext()
+                .getAuthentication()
+                .getName();
 
-        log.debug("Getting current user {}", username);
-
-        return getByUsername(username);
+        return userRepository.findByUsername(username)
+                .orElseThrow(() -> new UsernameNotFoundException(username));
     }
 
-    public User findById(Integer id) {
-        return userRepository.findById(id)
-                .orElseThrow(() -> {
-                    log.warn("User with id {} not found", id);
-                    return new UserNotFoundException(id);
-                });
+    public UserResponse getCurrentUserResponse() {
+        User user = getCurrentUser();
+        return userMapper.toUserResponse(user);
+    }
+
+    public UserResponse updateCurrentUser(UpdateUserRequest request) {
+        User user = getCurrentUser();
+
+        user.setUsername(request.getUsername());
+        user.setEmail(request.getEmail());
+
+        return userMapper.toUserResponse(userRepository.save(user));
     }
 
     public void deleteById(Integer id) {
-        log.info("Deleting user {}", id);
+        if (!userRepository.existsById(id)) {
+            throw new UserNotFoundException(id);
+        }
 
         userRepository.deleteById(id);
-
-        log.info("User {} deleted", id);
     }
 
-    public List<User> findAll() {
-        return userRepository.findAll();
+    public void deleteCurrentUser() {
+        User user = getCurrentUser();
+        userRepository.delete(user);
     }
 
-    public User updateCurrentUser(UpdateUserRequest request) {
-        User currentUser = getCurrentUser();
+    @Override
+    public UserDetails loadUserByUsername(String username) {
+        User user = userRepository.findByUsername(username)
+                .orElseThrow(() -> new UsernameNotFoundException(username));
 
-        log.info("Updating user {}", currentUser.getId());
-
-        currentUser.setUsername(request.getUsername());
-        currentUser.setEmail(request.getEmail());
-
-        log.info("User with id {} updated successfully", currentUser.getId());
-
-        return save(currentUser);
+        return org.springframework.security.core.userdetails.User
+                .withUsername(user.getUsername())
+                .password(user.getPassword())
+                .roles(user.getRole().name())
+                .build();
     }
 }
