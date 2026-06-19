@@ -9,6 +9,8 @@ import com.example.timetracker.task.exception.TaskNotFoundException;
 import com.example.timetracker.task.repository.TaskRepository;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -21,6 +23,11 @@ public class TaskService {
 
     private final TaskRepository taskRepository;
     private final UserService userService;
+
+    public Page<Task> findAll(Pageable pageable) {
+        User currentUser = userService.getCurrentUser();
+        return taskRepository.findByUser(currentUser, pageable);
+    }
 
     public List<Task> findAllByStatus(Status status) {
         User currentUser = userService.getCurrentUser();

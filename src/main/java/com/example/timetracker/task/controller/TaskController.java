@@ -9,6 +9,8 @@ import com.example.timetracker.task.service.TaskService;
 import io.swagger.v3.oas.annotations.security.SecurityRequirement;
 import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
 import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.*;
 
@@ -23,6 +25,12 @@ public class TaskController {
     private final TaskService taskService;
 
     private final TaskMapper taskMapper;
+
+    @GetMapping
+    public Page<TaskResponse> getTasks(Pageable pageable) {
+        return taskService.findAll(pageable)
+                .map(taskMapper::toTaskResponse);
+    }
 
     @GetMapping
     public List<TaskResponse> getTasks(@RequestParam(required = false) Status status) {

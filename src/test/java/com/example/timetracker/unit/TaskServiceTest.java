@@ -14,6 +14,10 @@ import org.junit.jupiter.api.extension.ExtendWith;
 import org.mockito.InjectMocks;
 import org.mockito.Mock;
 import org.mockito.junit.jupiter.MockitoExtension;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageImpl;
+import org.springframework.data.domain.PageRequest;
+import org.springframework.data.domain.Pageable;
 
 import java.util.List;
 import java.util.Optional;
@@ -55,6 +59,35 @@ class TaskServiceTest {
                 .status(Status.TODO)
                 .user(USER)
                 .build();
+    }
+
+    @Test
+    void shouldReturnPageOfTasks() {
+        Pageable pageable = PageRequest.of(0, 10);
+
+        User user = User.builder()
+                .id(1)
+                .username("test")
+                .build();
+
+        Task task = Task.builder()
+                .id(1)
+                .title("task")
+                .build();
+
+        Page<Task> page = new PageImpl<>(List.of(task), pageable, 1);
+
+        when(userService.getCurrentUser()).thenReturn(user);
+        when(taskRepository.findByUser(user, pageable)).thenReturn(page);
+
+        Page<Task> result = taskService.findAll(pageable);
+
+        assertThat(result.getContent()).hasSize(1);
+        assertThat(result.getContent().get(0).getTitle())
+                .isEqualTo("task");
+
+        verify(userService).getCurrentUser();
+        verify(taskRepository).findByUser(user, pageable);
     }
 
     @Test
