@@ -2,11 +2,13 @@ package com.example.timetracker.timeentry.controller;
 
 import com.example.timetracker.timeentry.dto.ActiveTimerResponse;
 import com.example.timetracker.timeentry.dto.TimeEntryResponse;
+import com.example.timetracker.timeentry.dto.TimeStatisticsResponse;
 import com.example.timetracker.timeentry.entity.TimeEntry;
 import com.example.timetracker.timeentry.mapper.TimeEntryMapper;
 import com.example.timetracker.timeentry.service.TimeEntryService;
 import io.swagger.v3.oas.annotations.security.SecurityRequirement;
 import lombok.RequiredArgsConstructor;
+import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
@@ -21,6 +23,11 @@ public class TimeEntryController {
     private final TimeEntryService timeEntryService;
     private final TimeEntryMapper timeEntryMapper;
 
+    @GetMapping("/statistics")
+    public TimeStatisticsResponse getStatistics() {
+        return timeEntryService.getStatistics();
+    }
+
     @GetMapping
     public List<TimeEntryResponse> findAll() {
         return timeEntryService.findAll().stream()
@@ -28,6 +35,7 @@ public class TimeEntryController {
                 .collect(Collectors.toList());
     }
 
+    @ResponseStatus(HttpStatus.CREATED)
     @PostMapping("/start/{taskId}")
     public ActiveTimerResponse start(@PathVariable Integer taskId) {
         TimeEntry timeEntry = timeEntryService.startTimer(taskId);

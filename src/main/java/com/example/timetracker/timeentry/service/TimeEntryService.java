@@ -1,21 +1,20 @@
 package com.example.timetracker.timeentry.service;
 
+import com.example.timetracker.auth.entity.User;
+import com.example.timetracker.auth.service.UserService;
 import com.example.timetracker.task.entity.Status;
 import com.example.timetracker.task.entity.Task;
-import com.example.timetracker.timeentry.entity.TimeEntry;
+import com.example.timetracker.task.exception.TaskAlreadyCompletedException;
 import com.example.timetracker.task.service.TaskService;
-import com.example.timetracker.auth.entity.User;
+import com.example.timetracker.timeentry.dto.TimeStatisticsResponse;
+import com.example.timetracker.timeentry.entity.TimeEntry;
 import com.example.timetracker.timeentry.exception.ActiveTimerAlreadyExistsException;
 import com.example.timetracker.timeentry.exception.ActiveTimerNotFoundException;
-import com.example.timetracker.task.exception.TaskAlreadyCompletedException;
 import com.example.timetracker.timeentry.repository.TimeEntryRepository;
-import com.example.timetracker.auth.service.UserService;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
-import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
-import org.springframework.web.bind.annotation.ResponseStatus;
 
 import java.time.Duration;
 import java.time.Instant;
@@ -30,7 +29,22 @@ public class TimeEntryService {
     private final TaskService taskService;
     private final UserService userService;
 
-    @ResponseStatus(HttpStatus.CREATED)
+    public TimeStatisticsResponse getStatistics() {
+        User currentUser = userService.getCurrentUser();
+        List<Task> tasks = currentUser.getTasks();
+
+        long totalMinutes = tasks.stream()
+                .flatMap(task -> task.getTimeEntries().stream())
+                .mapToLong(TimeEntry::getDurationMinutes)
+                .sum();
+
+        long completedTasks = tasks.stream()
+                .filter(task -> task.getStatus() == Status.DONE)
+                .count();
+
+        return new TimeStatisticsResponse(totalMinutes, completedTasks);
+    }
+
     @Transactional
     public TimeEntry startTimer(Integer taskId) {
         User currentUser = userService.getCurrentUser();
@@ -62,7 +76,6 @@ public class TimeEntryService {
         return savedEntry;
     }
 
-    @ResponseStatus(HttpStatus.OK)
     @Transactional
     public TimeEntry stopTimer() {
         User currentUser = userService.getCurrentUser();

@@ -1,16 +1,16 @@
 package com.example.timetracker.unit;
 
-import com.example.timetracker.timeentry.exception.ActiveTimerAlreadyExistsException;
-import com.example.timetracker.timeentry.exception.ActiveTimerNotFoundException;
-import com.example.timetracker.task.exception.TaskAlreadyCompletedException;
-import com.example.timetracker.timeentry.entity.TimeEntry;
-import com.example.timetracker.timeentry.repository.TimeEntryRepository;
-import com.example.timetracker.task.entity.Status;
-import com.example.timetracker.task.entity.Task;
-import com.example.timetracker.task.service.TaskService;
-import com.example.timetracker.timeentry.service.TimeEntryService;
 import com.example.timetracker.auth.entity.User;
 import com.example.timetracker.auth.service.UserService;
+import com.example.timetracker.task.entity.Status;
+import com.example.timetracker.task.entity.Task;
+import com.example.timetracker.task.exception.TaskAlreadyCompletedException;
+import com.example.timetracker.task.service.TaskService;
+import com.example.timetracker.timeentry.entity.TimeEntry;
+import com.example.timetracker.timeentry.exception.ActiveTimerAlreadyExistsException;
+import com.example.timetracker.timeentry.exception.ActiveTimerNotFoundException;
+import com.example.timetracker.timeentry.repository.TimeEntryRepository;
+import com.example.timetracker.timeentry.service.TimeEntryService;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
 import org.mockito.InjectMocks;
@@ -18,6 +18,7 @@ import org.mockito.Mock;
 import org.mockito.junit.jupiter.MockitoExtension;
 
 import java.time.Instant;
+import java.util.List;
 import java.util.Optional;
 
 import static org.junit.jupiter.api.Assertions.*;
@@ -50,6 +51,37 @@ class TimeEntryServiceTest {
             .description("desc")
             .status(Status.TODO)
             .build();
+
+    private final Task task2 = Task.builder()
+            .id(2)
+            .title("title2")
+            .description("desc2")
+            .timeEntries(List.of())
+            .status(Status.TODO)
+            .build();
+
+    @Test
+    void shouldReturnStatistics() {
+        Task task = Task.builder()
+                .status(Status.DONE)
+                .timeEntries(List.of(
+                        TimeEntry.builder().durationMinutes(10L).build(),
+                        TimeEntry.builder().durationMinutes(20L).build()
+                ))
+                .build();
+
+        User user = User.builder()
+                .tasks(List.of(task, task2))
+                .build();
+
+        when(userService.getCurrentUser()).thenReturn(user);
+
+        var statistics = timeEntryService.getStatistics();
+
+        assertNotNull(statistics);
+        assertEquals(statistics.getTotalMinutes(), 30L);
+        assertEquals(statistics.getCompletedTasks(), 2L);
+    }
 
     @Test
     void shouldStartTimer() {
