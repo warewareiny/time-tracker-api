@@ -1,160 +1,250 @@
 # Time Tracker API
-Учебный Java REST API проект для управления задачами и учёта рабочего времени.
-Приложение написано на **Spring Boot** с использованием **Spring Security**, **JWT**, **JPA/Hibernate** и **PostgreSQL**.
 
-## Описание проекта
-Time Tracker API — это REST-сервис, который позволяет пользователям создавать задачи, запускать и останавливать таймеры, а также отслеживать время, затраченное на выполнение задач.
+REST API для управления задачами и учёта рабочего времени, разработанный на Spring Boot.
 
-Проект создан как учебный проеткт для практики:
-* Java Core
-* Spring Boot
-* Spring Security
-* JWT Authentication
-* Spring Data JPA
-* Hibernate
-* REST API
-* PostgreSQL
-* Liquibase
-* Swagger / OpenAPI
-* DTO, Entity
-* валидации данных
-* обработки исключений
+Проект позволяет регистрировать пользователей, создавать задачи, запускать таймеры для отслеживания затраченного времени и получать статистику по выполненной работе.
 
-## Основная функциональность
-* Регистрация пользователя
-* Авторизация пользователя
-* JWT-аутентификация
+## Возможности
+
+### Аутентификация и пользователи
+
+* Регистрация нового пользователя
+* Авторизация по JWT
 * Получение информации о текущем пользователе
-* Редактирование профиля пользователя
-* Удаление аккаунта
-* Создание задач
-* Просмотр списка задач
-* Получение задачи по идентификатору
-* Редактирование задачи
+* Обновление профиля
+* Удаление собственного аккаунта
+* Просмотр пользователей (ADMIN)
+* Получение пользователя по ID (ADMIN)
+* Удаление пользователей (ADMIN)
+
+### Управление задачами
+
+* Создание задачи
+* Получение списка задач
+* Фильтрация задач по статусу
+* Пагинация списка задач
+* Получение задачи по ID
+* Обновление задачи
 * Удаление задачи
+
+### Учёт рабочего времени
+
 * Запуск таймера для задачи
 * Остановка активного таймера
-* Просмотр активного таймера
-* Получение длительности текущего таймера
-* Разграничение прав доступа USER / ADMIN
-* Swagger-документация API
+* Получение информации об активном таймере
+* Получение продолжительности активного таймера
+* Просмотр всех записей времени пользователя
+* Получение статистики по затраченному времени
 
-## Статусы задач
-1. `TODO` — задача ожидает выполнения
-2. `DONE` — задача завершена
-После остановки таймера задача автоматически переводится в статус `DONE`.
+### Безопасность
+
+* JWT Authentication
+* Spring Security
+* Role-Based Access Control (USER / ADMIN)
 
 ## Технологии
+
 * Java 17
-* Spring Boot
+* Spring Boot 3
 * Spring Security
-* JWT
 * Spring Data JPA
 * Hibernate
 * PostgreSQL
 * Liquibase
+* JWT 
+* MapStruct
 * Lombok
-* Swagger OpenAPI
+* Swagger / OpenAPI
+* Docker
+* Docker Compose
+
+### Тестирование
+
+* JUnit 5
+* Mockito
+* Spring Boot Test
+* Testcontainers
 
 ## Архитектура проекта
 
-Проект разделён на несколько слоёв: src/main/java/com/example/timetracker
+```
+src/main/java/com/example/timetracker
 
-* config — конфигурация приложения и безопасности
-* controller — REST-контроллеры
-* dto — объекты передачи данных
-* entity — сущности базы данных
-* exception — пользовательские исключения и обработчики
-* filter — JWT-фильтры
-* repository — работа с базой данных
-* service — бизнес-логика приложения
+├── auth
+│   ├── config
+│   ├── controller
+│   ├── dto
+│   ├── entity
+│   ├── exception
+│   ├── filter
+│   ├── mapper
+│   ├── repository
+│   └── service
+│
+├── task
+│   ├── controller
+│   ├── dto
+│   ├── entity
+│   ├── exception
+│   ├── mapper
+│   ├── repository
+│   └── service
+│
+├── timeentry
+│   ├── controller
+│   ├── dto
+│   ├── entity
+│   ├── exception
+│   ├── mapper
+│   ├── repository
+│   └── service
+│
+└── shared
+    ├── config
+    └── exception
+```
 
-Миграции базы данных находятся в: src/main/resources/db/changelog
-
-## Сущности
+## Модель данных
 
 ### User
-Пользователь содержит:
-* id
-* username
-* email
-* passwordHash
-* role
-* createdAt
-* updatedAt
+
+| Поле         | Тип          |
+| ------------ | ------------ |
+| id           | Integer      |
+| username     | String       |
+| email        | String       |
+| passwordHash | String       |
+| role         | USER / ADMIN |
+| createdAt    | Instant      |
+| updatedAt    | Instant      |
 
 ### Task
-Задача содержит:
-* id
-* title
-* description
-* status
-* createdAt
-* updatedAt
-* user
+
+| Поле        | Тип         |
+| ----------- | ----------- |
+| id          | Integer     |
+| title       | String      |
+| description | String      |
+| status      | TODO / DONE |
+| user        | User        |
+| createdAt   | Instant     |
+| updatedAt   | Instant     |
 
 ### TimeEntry
-Запись учёта времени содержит:
-* id
-* startTime
-* endTime
-* durationMinutes
-* task
-* user
-* createdAt
-* updatedAt
 
-### Role
-Enum с ролями пользователей:
-* USER
-* ADMIN
+| Поле            | Тип     |
+| --------------- | ------- |
+| id              | Integer |
+| startTime       | Instant |
+| endTime         | Instant |
+| durationMinutes | Long    |
+| task            | Task    |
+| user            | User    |
+| createdAt       | Instant |
+| updatedAt       | Instant |
 
-### Status
-Enum со статусами задач:
-* TODO
-* DONE
+## Статусы задач
 
-## Основные API-маршруты
+| Статус | Описание                  |
+| ------ | ------------------------- |
+| TODO   | Задача ожидает выполнения |
+| DONE   | Задача завершена          |
+
+После остановки таймера задача автоматически переводится в статус `DONE`.
+
+## API Endpoints
 
 ### Authentication
-| URL             | Метод | Описание                 |
-| --------------- | ----- | ------------------------ |
-| `/auth/sign-up` | POST  | Регистрация пользователя |
-| `/auth/sign-in` | POST  | Авторизация пользователя |
+
+| Метод | Endpoint               |
+| ----- | ---------------------- |
+| POST  | `/api/v1/auth/sign-up` |
+| POST  | `/api/v1/auth/sign-in` |
 
 ### Users
-| URL           | Метод  | Описание                      |
-| ------------- | ------ | ----------------------------- |
-| `/users/me`   | GET    | Текущий пользователь          |
-| `/users/me`   | PUT    | Обновление профиля            |
-| `/users/me`   | DELETE | Удаление своего аккаунта      |
-| `/users`      | GET    | Список пользователей (ADMIN)  |
-| `/users/{id}` | GET    | Пользователь по id (ADMIN)    |
-| `/users/{id}` | DELETE | Удаление пользователя (ADMIN) |
+
+| Метод  | Endpoint             |
+| ------ | -------------------- |
+| GET    | `/api/v1/users/me`   |
+| PUT    | `/api/v1/users/me`   |
+| DELETE | `/api/v1/users/me`   |
+| GET    | `/api/v1/users`      |
+| GET    | `/api/v1/users/{id}` |
+| DELETE | `/api/v1/users/{id}` |
 
 ### Tasks
-| URL           | Метод  | Описание          |
-| ------------- | ------ | ----------------- |
-| `/tasks`      | GET    | Список задач      |
-| `/tasks`      | POST   | Создание задачи   |
-| `/tasks/{id}` | GET    | Получение задачи  |
-| `/tasks/{id}` | PUT    | Обновление задачи |
-| `/tasks/{id}` | DELETE | Удаление задачи   |
+
+| Метод  | Endpoint             |
+| ------ | -------------------- |
+| GET    | `/api/v1/tasks`      |
+| POST   | `/api/v1/tasks`      |
+| GET    | `/api/v1/tasks/{id}` |
+| PUT    | `/api/v1/tasks/{id}` |
+| DELETE | `/api/v1/tasks/{id}` |
+
+Дополнительно поддерживаются:
+
+```
+GET /api/v1/tasks?status=TODO
+GET /api/v1/tasks?page=0&size=10
+```
 
 ### Time Entries
-| URL                            | Метод | Описание                       |
-| ------------------------------ | ----- | ------------------------------ |
-| `/time-entries/start/{taskId}` | POST  | Запуск таймера                 |
-| `/time-entries/stop`           | POST  | Остановка таймера              |
-| `/time-entries/active`         | GET   | Активный таймер                |
-| `/time-entries/active/minutes` | GET   | Длительность активного таймера |
 
-## Безопасность
-Для доступа к защищённым эндпоинтам используется JWT-аутентификация.
-После успешной регистрации или входа пользователь получает JWT-токен, который необходимо передавать в заголовке:
-Authorization: Bearer <token>
+| Метод | Endpoint                              |
+| ----- | ------------------------------------- |
+| GET   | `/api/v1/time-entries`                |
+| GET   | `/api/v1/time-entries/statistics`     |
+| POST  | `/api/v1/time-entries/start/{taskId}` |
+| POST  | `/api/v1/time-entries/stop`           |
+| GET   | `/api/v1/time-entries/active`         |
+| GET   | `/api/v1/time-entries/active/minutes` |
+
+## Запуск через Docker
+
+
+```bash
+docker compose up --build
+```
+
+После запуска приложение будет доступно по адресу:
+
+```text
+http://localhost:8080
+```
 
 ## Swagger
-После запуска приложения документация доступна по адресу:
 
+Документация API:
+
+```text
 http://localhost:8080/swagger-ui/index.html
+```
+
+## Тестирование
+
+Запуск всех тестов:
+
+```bash
+./gradlew test
+```
+
+Проект содержит:
+
+* Unit-тесты
+* Интеграционные тесты
+* Testcontainers для PostgreSQL
+
+## Что было реализовано в проекте
+
+* Spring Security + JWT
+* REST API
+* PostgreSQL
+* Liquibase
+* Docker
+* DTO и MapStruct
+* Глобальная обработка исключений
+* Пагинация и фильтрация
+* Unit и Integration Testing
+* Ролевая модель доступа
+* Документирование API через Swagger/OpenAPI
