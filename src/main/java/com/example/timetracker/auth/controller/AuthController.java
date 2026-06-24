@@ -1,6 +1,7 @@
 package com.example.timetracker.auth.controller;
 
 import com.example.timetracker.auth.dto.JwtAuthenticationResponse;
+import com.example.timetracker.auth.dto.RefreshTokenRequest;
 import com.example.timetracker.auth.dto.SignInRequest;
 import com.example.timetracker.auth.dto.SignUpRequest;
 import com.example.timetracker.auth.service.AuthenticationService;
@@ -12,7 +13,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 @RestController
-@RequestMapping("/api/v1//auth")
+@RequestMapping("/api/v1/auth")
 @RequiredArgsConstructor
 public class AuthController {
 
@@ -26,5 +27,10 @@ public class AuthController {
     @PostMapping("/sign-in")
     public JwtAuthenticationResponse signIn(@RequestBody @Valid SignInRequest request) {
         return authenticationService.signIn(request);
+    }
+
+    @PostMapping("/refresh")
+    public JwtAuthenticationResponse refresh(@RequestBody RefreshTokenRequest request) {
+        return authenticationService.refresh(request);
     }
 }

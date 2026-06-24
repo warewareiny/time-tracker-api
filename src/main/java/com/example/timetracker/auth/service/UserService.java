@@ -26,6 +26,11 @@ public class UserService implements UserDetailsService {
     private final UserRepository userRepository;
     private final UserMapper userMapper;
 
+    public User getByUsernameEntity(String username) {
+        return userRepository.findByUsername(username)
+                .orElseThrow(() -> new UsernameNotFoundException(username));
+    }
+
     public UserResponse create(User user) {
         log.info("Creating user {}", user.getUsername());
 

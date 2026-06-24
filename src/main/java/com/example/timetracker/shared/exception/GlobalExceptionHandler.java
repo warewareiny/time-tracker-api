@@ -1,6 +1,8 @@
 package com.example.timetracker.shared.exception;
 
 import com.example.timetracker.auth.exception.AccessDeniedException;
+import com.example.timetracker.auth.exception.InvalidRefreshTokenException;
+import com.example.timetracker.auth.exception.RefreshTokenExpiredException;
 import com.example.timetracker.auth.exception.UserNotFoundException;
 import com.example.timetracker.task.exception.TaskAlreadyCompletedException;
 import com.example.timetracker.task.exception.TaskNotFoundException;
@@ -53,6 +55,16 @@ public class GlobalExceptionHandler {
     @ExceptionHandler(TaskAlreadyCompletedException.class)
     public ResponseEntity<ErrorResponse> handleTaskAlreadyCompleted(TaskAlreadyCompletedException ex) {
         return buildResponse(HttpStatus.CONFLICT, ex.getMessage());
+    }
+
+    @ExceptionHandler(InvalidRefreshTokenException.class)
+    public ResponseEntity<ErrorResponse> handleInvalidRefreshTokenException(InvalidRefreshTokenException ex) {
+        return buildResponse(HttpStatus.UNAUTHORIZED, ex.getMessage());
+    }
+
+    @ExceptionHandler(RefreshTokenExpiredException.class)
+    public ResponseEntity<ErrorResponse> handleRefreshTokenExpiredException(RefreshTokenExpiredException ex) {
+        return buildResponse(HttpStatus.UNAUTHORIZED\, ex.getMessage());
     }
 
     private ResponseEntity<ErrorResponse> buildResponse(HttpStatus status, String message) {

@@ -1,15 +1,13 @@
 package com.example.timetracker.auth.service;
 
-import com.example.timetracker.auth.dto.JwtAuthenticationResponse;
-import com.example.timetracker.auth.dto.SignInRequest;
-import com.example.timetracker.auth.dto.SignUpRequest;
+import com.example.timetracker.auth.dto.*;
+import com.example.timetracker.auth.entity.RefreshToken;
 import com.example.timetracker.auth.entity.Role;
 import com.example.timetracker.auth.entity.User;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
-import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
@@ -22,40 +20,46 @@ public class AuthenticationService {
     private final JwtService jwtService;
     private final PasswordEncoder passwordEncoder;
     private final AuthenticationManager authenticationManager;
+    private final RefreshTokenService refreshTokenService;
 
     public JwtAuthenticationResponse signUp(SignUpRequest request) {
-
-        log.info("Registering user {}", request.getUsername());
-
         User user = User.builder()
-                .username(request.getUsername())
-                .email(request.getEmail())
-                .passwordHash(passwordEncoder.encode(request.getPassword()))
+                .username(request.username())
+                .email(request.email())
+                .passwordHash(passwordEncoder.encode(request.password()))
                 .role(Role.USER)
                 .build();
 
         User savedUser = userService.save(user);
 
-        var jwt = jwtService.generateToken(savedUser);
+        String accessToken = jwtService.generateToken(savedUser);
+        RefreshToken refreshToken = refreshTokenService.create(savedUser);
 
-        return new JwtAuthenticationResponse(jwt);
+        return new JwtAuthenticationResponse(accessToken, refreshToken.getToken());
     }
 
     public JwtAuthenticationResponse signIn(SignInRequest request) {
-
-        log.info("Authentication attempt {}", request.getUsername());
-
         authenticationManager.authenticate(
-                new UsernamePasswordAuthenticationToken(
-                        request.getUsername(),
-                        request.getPassword()
-                )
-        );
+                new UsernamePasswordAuthenticationToken(request.username(), request.password()));
 
-        UserDetails userDetails = userService.loadUserByUsername(request.getUsername());
+        User user = userService.getByUsernameEntity(request.username());
 
-        var jwt = jwtService.generateToken(userDetails);
+        String accessToken = jwtService.generateToken(user);
+        RefreshToken refreshToken = refreshTokenService.create(user);
 
-        return new JwtAuthenticationResponse(jwt);
+        return new JwtAuthenticationResponse(accessToken,refreshToken.getToken());
+    }
+
+    public JwtAuthenticationResponse refresh(RefreshTokenRequest request) {
+        RefreshToken oldToken = refreshTokenService.verify(request.refreshToken());
+
+        User user = oldToken.getUser();
+
+        refreshTokenService.delete(oldToken);
+
+        RefreshToken newToken = refreshTokenService.create(user);
+        String accessToken = jwtService.generateToken(user);
+
+        return new JwtAuthenticationResponse(accessToken, newToken.getToken());
     }
 }
