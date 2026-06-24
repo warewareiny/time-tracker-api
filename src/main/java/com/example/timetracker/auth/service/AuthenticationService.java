@@ -62,4 +62,12 @@ public class AuthenticationService {
 
         return new JwtAuthenticationResponse(accessToken, newToken.getToken());
     }
+
+    public void logout() {
+        User user = userService.getCurrentUser();
+
+        refreshTokenService.deleteByUser(user);
+
+        log.info("User logged out");
+    }
 }

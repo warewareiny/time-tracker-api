@@ -1,9 +1,6 @@
 package com.example.timetracker.auth.controller;
 
-import com.example.timetracker.auth.dto.JwtAuthenticationResponse;
-import com.example.timetracker.auth.dto.RefreshTokenRequest;
-import com.example.timetracker.auth.dto.SignInRequest;
-import com.example.timetracker.auth.dto.SignUpRequest;
+import com.example.timetracker.auth.dto.*;
 import com.example.timetracker.auth.service.AuthenticationService;
 import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
@@ -32,5 +29,10 @@ public class AuthController {
     @PostMapping("/refresh")
     public JwtAuthenticationResponse refresh(@RequestBody RefreshTokenRequest request) {
         return authenticationService.refresh(request);
+    }
+
+    @PostMapping("/logout")
+    public void logout() {
+        authenticationService.logout();
     }
 }
