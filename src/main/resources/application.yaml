@@ -1,0 +1,26 @@
+spring:
+  datasource:
+    url: ${SPRING_DATASOURCE_URL}
+    username: ${SPRING_DATASOURCE_USERNAME}
+    password: ${SPRING_DATASOURCE_PASSWORD}
+    driver-class-name: org.postgresql.Driver
+
+  data:
+    redis:
+      host: redis
+      port: 6379
+  cache:
+    type: redis
+
+token:
+  signing:
+    key: ${SPRING_TOKEN_KEY}
+
+logging:
+  level:
+    root: INFO
+    com.example.timetracker: INFO
+  file:
+    name: logs/time-tracker.log
+  pattern:
+    console: "%d{yyyy-MM-dd HH:mm:ss} [%thread] %-5level %logger{36} - %msg%n"

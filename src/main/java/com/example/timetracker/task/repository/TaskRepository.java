@@ -14,11 +14,12 @@ import java.util.Optional;
 @Repository
 public interface TaskRepository extends JpaRepository<Task, Integer> {
 
-    List<Task> findByUser(User user);
+    List<Task> findAllByUserId(Integer id);
 
     Page<Task> findByUserAndStatus(User user, Status status, Pageable pageable);
 
     Optional<Task> findByIdAndUser(Integer id, User user);
 
     Page<Task> findByUser(User user, Pageable pageable);
+
 }

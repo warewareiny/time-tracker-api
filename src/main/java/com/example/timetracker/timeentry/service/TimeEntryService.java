@@ -18,6 +18,8 @@ import com.example.timetracker.timeentry.mapper.TimeEntryMapper;
 import com.example.timetracker.timeentry.repository.TimeEntryRepository;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
+import org.springframework.cache.annotation.CacheEvict;
+import org.springframework.cache.annotation.Cacheable;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -36,6 +38,10 @@ public class TimeEntryService {
     private final TimeEntryMapper timeEntryMapper;
     private final UserService userService;
 
+    @Cacheable(
+            value = "statistics",
+            key = "@userService.getCurrentUser().id"
+    )
     public TimeStatisticsResponse getStatistics() {
         User currentUser = userService.getCurrentUser();
         List<Task> tasks = currentUser.getTasks();
@@ -60,6 +66,10 @@ public class TimeEntryService {
                 .toList();
     }
 
+    @CacheEvict(
+            value = "activeTimer",
+            key = "@userService.getCurrentUser().id"
+    )
     @Transactional
     public ActiveTimerResponse startTimer(Integer taskId) {
         User user = userService.getCurrentUser();
@@ -85,6 +95,10 @@ public class TimeEntryService {
         );
     }
 
+    @CacheEvict(
+            value = "activeTimer",
+            key = "@userService.getCurrentUser().id"
+    )
     @Transactional
     public ActiveTimerResponse stopTimer() {
         User user = userService.getCurrentUser();
@@ -107,6 +121,10 @@ public class TimeEntryService {
         );
     }
 
+    @Cacheable(
+            value = "activeTimer",
+            key = "@userService.getCurrentUser().id"
+    )
     public ActiveTimerResponse getActiveTimer() {
         User user = userService.getCurrentUser();
 

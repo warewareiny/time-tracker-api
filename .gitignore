@@ -37,5 +37,4 @@ out/
 .vscode/
 
 # Local application config
-src/main/resources/application.yaml
 .env
